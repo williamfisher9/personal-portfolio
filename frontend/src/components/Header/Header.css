@@ -1,0 +1,8 @@
+.header-btn {
+    @apply h-10 border border-zinc-400 text-zinc-400 px-8 rounded-md hover:bg-zinc-400 hover:text-zinc-900 max-md:hidden
+}
+
+.material-symbols-rounded {
+    @apply  text-zinc-400 md:hidden text-3xl rounded-md 
+    p-[1px] hover:cursor-pointer bg-zinc-400/[0.2] active:transition-[scale] active:scale-90 active:duration-300 active:select-none
+}
