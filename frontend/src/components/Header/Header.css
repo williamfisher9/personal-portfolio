@@ -4,5 +4,5 @@
 
 .material-symbols-rounded {
     @apply  text-zinc-400 md:hidden text-3xl rounded-md 
-    p-[1px] hover:cursor-pointer bg-zinc-400/[0.2] active:transition-[scale] active:scale-90 active:duration-300 active:select-none
+    p-[1px] hover:cursor-pointer bg-slate-500/25 active:transition-[scale] active:scale-90 active:duration-300 active:select-none
 }

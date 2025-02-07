@@ -69,3 +69,18 @@ Replace contents of ./src/index.css:
 ```
 npm install prop-types
 ```
+
+### Scrollbar Plugin
+```
+npm install tailwind-scrollbar
+```
+
+Add it to the plugins array of tailwind.config.js:
+```
+import tailwindScrollbar from 'tailwind-scrollbar';
+
+  ...
+  plugins: [tailwindScrollbar],
+  ...
+
+```
