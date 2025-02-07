@@ -14,11 +14,8 @@ const Header = () => {
             <a href='/'>
                 <img src='favicon.png' className='size-16' alt='logo-image' />
             </a>
-
-            <span className="material-symbols-rounded" onClick={() => setNavOpenState(prev => !prev)}>{!navOpenState ? 'menu' : 'close'}</span>
-
+            <span className="menu-icon material-symbols-rounded" onClick={() => setNavOpenState(prev => !prev)}>{!navOpenState ? 'menu' : 'close'}</span>
             <Navbar navOpenState={navOpenState} closeNav={closeNav}/>
-
             <button className='header-btn'>LOGIN</button>
         </div>
     )

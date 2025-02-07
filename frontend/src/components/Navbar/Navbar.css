@@ -1,5 +1,5 @@
 .navbar-menu {
-    @apply rounded-xl flex gap-2 relative bg-slate-500/25
+    @apply rounded-xl flex gap-2 bg-slate-500/25 relative
 }
 
 .mid-screen-navbar {
