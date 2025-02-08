@@ -21,10 +21,10 @@ const Hero = () => {
         </div>
         <div className="btn-group">
           <button className="btn flex gap-1">Download Resume <span className="material-symbols-rounded">download</span></button>
-          <button className="btn flex gap-2">Contact <span className="material-symbols-rounded">contact_mail</span></button>
+          <button className="btn flex gap-2">Contact Me <span className="material-symbols-rounded">contact_mail</span></button>
         </div>
       </div>
-      <img src="profile.png" alt="profile-image" />
+      <img src="profile.jpg" className='size-96' alt="profile-image" />
     </div>
     </div>
   );
