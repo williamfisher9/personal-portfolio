@@ -37,9 +37,9 @@ const Navbar = ({navOpenState, closeNav}) => {
             setScreenWidth(window.innerWidth)
             
             activeNavbarItemBox.current.style.left = activeNavbarItem.current.offsetLeft + "px";
-        activeNavbarItemBox.current.style.top = activeNavbarItem.current.offsetTop + "px";
-        activeNavbarItemBox.current.style.width = activeNavbarItem.current.getBoundingClientRect().width + "px";
-        activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";
+            activeNavbarItemBox.current.style.top = activeNavbarItem.current.offsetTop + "px";
+            activeNavbarItemBox.current.style.width = activeNavbarItem.current.getBoundingClientRect().width + "px";
+            activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";
 
             if(window.innerWidth > 768){
                 closeNav()
@@ -55,13 +55,17 @@ const Navbar = ({navOpenState, closeNav}) => {
         return () => window.removeEventListener("resize", () => setScreenWidth(window.innerWidth));
     }, [])
 
-
-
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
 
     return (
-        <div className={`navbar-menu ${navOpenState == true && screenWidth < 768 ? 'side-screen-navbar' : 'mid-screen-navbar'}`}>
+        <div className={`navbar-menu ${navOpenState == true && screenWidth < 768 ? (screenWidth < 500 ? 'w-full side-screen-navbar' : 'w-44 side-screen-navbar') : 'mid-screen-navbar'}`}>
+
+            {
+                navOpenState == true ?
+                    <span className="material-symbols-rounded absolute text-zinc-400 text-3xl top-2 right-2" onClick={() => closeNav()}>close</span>
+                : null
+            }
 
             <div ref={activeNavbarItemBox} className='active-navbar-box'></div>
 

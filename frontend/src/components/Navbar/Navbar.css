@@ -1,13 +1,13 @@
 .navbar-menu {
-    @apply rounded-xl flex gap-2 bg-zinc-800/50 relative
+    @apply flex gap-2 bg-zinc-800/50 relative
 }
 
 .mid-screen-navbar {
-    @apply items-center max-md:hidden md:visible h-14 px-2
+    @apply items-center max-md:hidden md:visible h-14 px-2 rounded-xl
 }
 
 .side-screen-navbar {
-    @apply flex-col justify-center fixed top-24 right-10 w-36 max-md:visible md:hidden p-4
+    @apply flex-col justify-center items-center fixed top-0 right-0 h-full max-md:visible md:hidden p-4 bg-zinc-800 z-50
 }
 
 .navbar-item {
