@@ -25,7 +25,7 @@ const Header = () => {
                 {
                     theme == "dark" ?
                     <>
-                    <div className='flex items-center justify-center absolute rounded-full size-8 border border-zinc-400 left-1 top-[3px] bg-slate-400 cursor-pointer transition-all duration-300' onClick={() => setTheme("light")}>
+                    <div className='flex items-center justify-center absolute rounded-full size-8 border border-zinc-400 left-1 top-[50%] transform translate-y-[-50%] bg-slate-400 cursor-pointer' onClick={() => setTheme("light")}>
                     <span className="material-symbols-rounded">light_mode</span>
                     </div>
                     <span className='text-zinc-400 absolute right-2 top-[6px]'>Light</span>
@@ -33,7 +33,7 @@ const Header = () => {
                     :
                     <>
                     <span className='text-zinc-400 absolute left-2 top-[6px]'>Dark</span>
-                    <div className='flex items-center justify-center absolute rounded-full size-8 border border-zinc-400 right-1 top-[3px] bg-slate-400 cursor-pointer transition-all duration-300' onClick={() => setTheme("dark")}>
+                    <div className='flex items-center justify-center absolute rounded-full size-8 border border-zinc-400 right-1 top-[50%] transform translate-y-[-50%] bg-slate-400 cursor-pointer' onClick={() => setTheme("dark")}>
                     <span className="material-symbols-rounded">dark_mode</span>
                     </div>
                     </>
@@ -41,7 +41,7 @@ const Header = () => {
             </div>
 
             <button className='header-btn'>LOGIN</button>
-            
+
             <span className="menu-icon material-symbols-rounded" onClick={() => setNavOpenState(prev => !prev)}>{!navOpenState ? 'menu' : 'close'}</span>
             </div>
 
