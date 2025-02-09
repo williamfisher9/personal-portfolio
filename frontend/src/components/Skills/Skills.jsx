@@ -1,47 +1,165 @@
-import './Skills.css'
+import { useState } from "react";
+import "./Skills.css";
+import * as myConstants from '../Constants/Constants'
 
 const Skills = () => {
+  const [activeTab, setActiveTab] = useState("ALL");
+  const [listType, setListType] = useState("BOXES");
 
-    const skill_items = [
-        {icon_name: 'adobexd.png', skill_name: 'AdobeXD', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5'},
-        {icon_name: 'angular.png', skill_name: 'Angular', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_4px_4px_#ba002b,-2px_-2px_4px_4px_#ba002b'},
-        {icon_name: 'react.png', skill_name: 'ReactJS', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_4px_4px_#d9ebef,-2px_-2px_4px_4px_#d9ebef'},
-        {icon_name: 'javascript.png', skill_name: 'JavaScript', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_RGB(242, 213, 23),-2px_-2px_2px_4px_RGB(242, 213, 23)'},
-        {icon_name: 'typescript.png', skill_name: 'TypeScript', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'jquery.png', skill_name: 'JQuery', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'css.png', skill_name: 'CSS', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5'},
-        {icon_name: 'bootstrap.png', skill_name: 'Bootstrap', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'tailwind.png', skill_name: 'Tailwind', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'html.png', skill_name: 'HTML', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'java.png', skill_name: 'Java', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'python.png', skill_name: 'Python', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'flask.png', skill_name: 'Flask', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_4px_4px_#d9ebef,-2px_-2px_4px_4px_#d9ebef'},
-        {icon_name: 'springboot.png', skill_name: 'Spring Boot', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'},
-        {icon_name: 'springsecurity.png', skill_name: 'Spring Security', skill_desc: 'UI/UX design', box_shadow_color: '2px_2px_2px_4px_#553b7e,-2px_-2px_2px_4px_#553b7e'}
-    ]
+  const handleTabClick = (itemName) => {
+    setActiveTab(itemName);
+  };
 
-    return (
-        <div className="px-32 py-8">
-<div className='pl-12'>
-<h1 className='text-zinc-400 text-[40px] font-bold'>My Tools</h1>
-<p className='text-zinc-400'>Essential tools I use to build exceptional high-performing websites and applications.</p>
-</div>
-            <div className="px-8 py-4 grid gap-4 grid-cols-[repeat(auto-fill,_minmax(160px,_1fr))] place-items-center">
-                {
-                    skill_items.sort((a, b) => a.skill_name.localeCompare(b.skill_name)).map((item) => {
-                        return <div className={`skill-item hover:scale-105 transition-all duration-400 select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5]`} key={item.skill_name}>
-                       
-                        <img src={item.icon_name} className='size-10' alt='adobexd' />
-                        <div className='flex flex-col'>
-                            <span className='text-md'>{item.skill_name}</span>
-                            <span className='text-sm text-zinc-400/50'>{item.skill_desc}</span>
-                        </div>
-                    </div>
-                    })
-                }
-            </div>
+  return (
+    <div>
+      <div className="mt-8">
+        <a id="skills" className="text-zinc-400 text-[40px] font-bold">
+          My Tools
+        </a>
+        <p className="text-zinc-400">
+          Essential tools I use to build exceptional high-performing websites
+          and applications.
+        </p>
+      </div>
+
+      <div className="flex justify-center gap-36 items-center text-zinc-400 mt-8 max-[1000px]:gap-2 max-[1000px]:flex-col">
+        <div className="flex gap-4 justify-center items-center max-[1000px]:text-xs max-[1000px]:gap-0">
+          <div
+            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+              activeTab == "ALL" ? "border-b-4 border-white text-white" : ""
+            }`}
+            onClick={() => handleTabClick("ALL")}
+          >
+            ALL
+          </div>
+          <div
+            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+              activeTab == "FRONTEND"
+                ? "border-b-4 border-white text-white"
+                : ""
+            }`}
+            onClick={() => handleTabClick("FRONTEND")}
+          >
+            FRONTEND
+          </div>
+          <div
+            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+              activeTab == "BACKEND" ? "border-b-4 border-white text-white" : ""
+            }`}
+            onClick={() => handleTabClick("BACKEND")}
+          >
+            BACKEND
+          </div>
+          <div
+            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+              activeTab == "INFRASTRUCTURE"
+                ? "border-b-4 border-white text-white"
+                : ""
+            }`}
+            onClick={() => handleTabClick("INFRASTRUCTURE")}
+          >
+            INFRASTRUCTURE
+          </div>
+          <div
+            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+              activeTab == "UI/UX" ? "border-b-4 border-white text-white" : ""
+            }`}
+            onClick={() => handleTabClick("UI/UX")}
+          >
+            UI/UX
+          </div>
         </div>
-    )
-}
 
-export default Skills
+        <div className="flex gap-4 justify-center items-center">
+          <span
+            className={`material-symbols-rounded cursor-pointer hover:scale-125 transition duration-300 max-[1000px]:hover:scale-100 ${
+              listType == "BOXES" ? "border-b-4 border-white" : null
+            }`}
+            onClick={() => setListType("BOXES")}
+          >
+            apps
+          </span>
+          <span
+            className={`material-symbols-rounded cursor-pointer hover:scale-125 transition duration-300 max-[1000px]:hover:scale-100 ${
+              listType == "LIST" ? "border-b-4 border-white" : null
+            }`}
+            onClick={() => setListType("LIST")}
+          >
+            list
+          </span>
+        </div>
+      </div>
+
+      {listType == "BOXES" ? (
+        <div className="px-12 py-4 grid gap-4 place-items-center grid-cols-[repeat(auto-fill,_minmax(230px,_1fr))] transition-all duration-400">
+          {
+          myConstants.SKILLS_ITEMS
+            .filter(
+              (item) => activeTab == "ALL" || item.skill_type == activeTab
+            )
+            .sort((a, b) => a.skill_name.localeCompare(b.skill_name))
+            .map((item) => 
+                {
+                    return (
+                        <div className={`w-56 skill-item`} key={item.skill_name}>
+                          <img
+                            src={item.icon_name}
+                            className="size-10"
+                            alt={item.icon_name}
+                          />
+                          <div className="flex flex-col">
+                            <span className="text-[14px]">{item.skill_name}</span>
+                            <span className="text-[10px] text-zinc-400/80">
+                              {item.skill_type}
+                            </span>
+                          </div>
+                        </div>
+                        
+                      );
+                })
+            }
+        </div>
+      ) : (
+        <div className="px-12 py-4 grid gap-4 place-items-center grid-cols-3 max-[1300px]:grid-cols-2 max-[900px]:grid-cols-1">
+          {myConstants.SKILLS_ITEMS
+            .filter(
+              (item) => activeTab == "ALL" || item.skill_type == activeTab
+            )
+            .sort((a, b) => a.skill_name.localeCompare(b.skill_name))
+            .map((item) => {
+              return (
+                <div className={`w-full skill-item`} key={item.skill_name}>
+                  <div className="w-[12%]">
+                    <img
+                      src={item.icon_name}
+                      className="size-10"
+                      alt={item.icon_name}
+                    />
+                  </div>
+                  <div className="w-[30%] flex flex-col">
+                    <span className="text-[14px]">{item.skill_name}</span>
+                    <span className="text-[10px] text-zinc-400/80">
+                      {item.skill_type}
+                    </span>
+                  </div>
+
+                  <div className="w-[50%] flex h-2 border border-green-600 rounded-sm">
+                    <div
+                      className={`h-full bg-green-200`}
+                      style={{ width: `${item.strength}` }}
+                    ></div>
+                  </div>
+
+                  <div className="w-[10%]">
+                    <span className="text-green-200">{item.strength}</span>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Skills;

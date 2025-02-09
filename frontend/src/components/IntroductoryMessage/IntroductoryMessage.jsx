@@ -1,16 +1,25 @@
 const IntroductoryMessage = () => {
-    return (
-        <div className="px-48 py-8">
-            <div className="bg-gray-800 rounded-md px-8 py-4">
-                <p className="text-zinc-400">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex consequatur repellat commodi facilis dolores porro ea facere, 
-                    totam inventore a ab doloribus accusamus quibusdam, sed enim neque aspernatur beatae eius!</p>
-                    <p className="text-zinc-400">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex consequatur repellat commodi facilis dolores porro ea facere, 
-                    totam inventore a ab doloribus accusamus quibusdam, sed enim neque aspernatur beatae eius!</p>
-                    <p className="text-zinc-400">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex consequatur repellat commodi facilis dolores porro ea facere, 
-                    totam inventore a ab doloribus accusamus quibusdam, sed enim neque aspernatur beatae eius!</p>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div>
+      <div className="mt-8">
+        <a id="about" className="text-zinc-400 text-[40px] font-bold">
+          About Me
+        </a>
+      </div>
 
-export default IntroductoryMessage
+      <div className="bg-gray-800 rounded-md p-4">
+        <p className="text-zinc-400">
+          Over 10 years of experience as a System Implementation and Support Engineer Dedicated Full Stack Developer with [number of years] years of
+          experience in [specific programming languages or frameworks]. Seeking
+          to leverage my expertise in [specific areas of full stack development]
+          to drive [specific outcomes] at [Company Name]. Committed to
+          delivering high-quality results in fast-paced environments, and eager
+          to contribute innovative solutions that align with the company's
+          technological vision.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default IntroductoryMessage;

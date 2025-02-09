@@ -62,7 +62,10 @@ const Navbar = ({navOpenState, closeNav}) => {
 
     return (
         <div className={`navbar-menu ${navOpenState == true && screenWidth < 768 ? 'side-screen-navbar' : 'mid-screen-navbar'}`}>
+
             <div ref={activeNavbarItemBox} className='active-navbar-box'></div>
+
+            
             {
                 navbarItems
                 .filter((item) => (screenWidth < 768 && item.menuSize == "all") || (screenWidth < 768 && item.menuSize == "small") || (screenWidth >= 768 && item.menuSize == "all"))
