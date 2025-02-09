@@ -4,6 +4,7 @@ import './Header.css';
 
 const Header = () => {
     const [navOpenState, setNavOpenState] = useState(false);
+    const [theme, setTheme] = useState("light");
 
     const closeNav = () => {
         setNavOpenState(false)
@@ -14,9 +15,38 @@ const Header = () => {
             <a href='/'>
                 <img src='favicon.png' className='size-16' alt='logo-image' />
             </a>
-            <span className="menu-icon material-symbols-rounded" onClick={() => setNavOpenState(prev => !prev)}>{!navOpenState ? 'menu' : 'close'}</span>
+                     
+            
             <Navbar navOpenState={navOpenState} closeNav={closeNav}/>
+
+            
+            <div className='flex gap-2'>
+            <div className='relative rounded-3xl w-[85px] h-10 bg-zinc-800'>
+                {
+                    theme == "dark" ?
+                    <>
+                    <div className='flex items-center justify-center absolute rounded-full size-8 border border-zinc-400 left-1 top-[3px] bg-slate-400 cursor-pointer transition-all duration-300' onClick={() => setTheme("light")}>
+                    <span className="material-symbols-rounded">light_mode</span>
+                    </div>
+                    <span className='text-zinc-400 absolute right-2 top-[6px]'>Light</span>
+                    </>
+                    :
+                    <>
+                    <span className='text-zinc-400 absolute left-2 top-[6px]'>Dark</span>
+                    <div className='flex items-center justify-center absolute rounded-full size-8 border border-zinc-400 right-1 top-[3px] bg-slate-400 cursor-pointer transition-all duration-300' onClick={() => setTheme("dark")}>
+                    <span className="material-symbols-rounded">dark_mode</span>
+                    </div>
+                    </>
+                }
+            </div>
+
             <button className='header-btn'>LOGIN</button>
+            
+            <span className="menu-icon material-symbols-rounded" onClick={() => setNavOpenState(prev => !prev)}>{!navOpenState ? 'menu' : 'close'}</span>
+            </div>
+
+            
+            
         </div>
     )
 }
