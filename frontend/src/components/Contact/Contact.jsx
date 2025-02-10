@@ -17,9 +17,9 @@ const Contact = () => {
 
                 <form className="contact-form flex flex-col gap-4 w-[70%]">
 
-                    <input type="text" placeholder="name" className={`h-10 border-none outline-none rounded-md pl-2 placeholder:uppercase ${theme.theme == 'dark' ? 'bg-zinc-200/15' : 'bg-[#E0E7FF]'}`} />
-                    <input type="text" placeholder="email" className={`h-10 border-none outline-none rounded-md pl-2 placeholder:uppercase ${theme.theme == 'dark' ? 'bg-zinc-200/15' : 'bg-[#E0E7FF]'}`} />
-                    <textarea rows="5" cols="50" placeholder="message"  className={`h-10 border-none outline-none rounded-md pl-2 placeholder:uppercase ${theme.theme == 'dark' ? 'bg-zinc-200/15' : 'bg-[#E0E7FF]'}`} />
+                    <input type="text" placeholder="name" className={`h-10 border-none outline-none rounded-md pl-2 placeholder:uppercase ${theme.theme == 'dark' ? 'bg-zinc-200/15' : 'bg-indigo-200'}`} />
+                    <input type="text" placeholder="email" className={`h-10 border-none outline-none rounded-md pl-2 placeholder:uppercase ${theme.theme == 'dark' ? 'bg-zinc-200/15' : 'bg-indigo-200'}`} />
+                    <textarea rows="5" cols="50" placeholder="message"  className={`h-10 border-none outline-none rounded-md pl-2 placeholder:uppercase ${theme.theme == 'dark' ? 'bg-zinc-200/15' : 'bg-indigo-200'}`} />
                     <input type="button" value="submit" className={`px-4 py-2 uppercase ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}/>
 
                 </form>

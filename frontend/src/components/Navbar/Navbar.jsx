@@ -63,9 +63,9 @@ const Navbar = ({navOpenState, closeNav}) => {
 
     return (
         <div className={`navbar-menu ${navOpenState == true && screenWidth < 768 ? (screenWidth < 500 ? 
-        (theme.theme == "light" ? 'bg-indigo-500 w-full side-screen-navbar' : 'bg-zinc-800/50 w-full side-screen-navbar') : 
-        (theme.theme == "light" ? 'bg-indigo-500 w-44 side-screen-navbar' : 'bg-zinc-800/50 w-44 side-screen-navbar')) : 
-        (theme.theme == "light" ? 'bg-indigo-500 mid-screen-navbar' : 'bg-zinc-800/50 mid-screen-navbar')}`}>
+        (theme.theme == "light" ? 'bg-indigo-500 w-full side-screen-navbar' : 'bg-teal-500 w-full side-screen-navbar') : 
+        (theme.theme == "light" ? 'bg-indigo-500 w-44 side-screen-navbar' : 'bg-teal-500 w-44 side-screen-navbar')) : 
+        (theme.theme == "light" ? 'bg-indigo-500 mid-screen-navbar' : 'bg-teal-500 mid-screen-navbar')}`}>
 
             {
                 navOpenState == true ?
@@ -80,7 +80,7 @@ const Navbar = ({navOpenState, closeNav}) => {
                 navbarItems
                 .filter((item) => (screenWidth < 768 && item.menuSize == "all") || (screenWidth < 768 && item.menuSize == "small") || (screenWidth >= 768 && item.menuSize == "all"))
                 .map(({href, label, ref}) => {
-                    return <a key={label} href={href} ref={ref} className={`navbar-item text-white`} onClick={() => handleNavbarItemClick(label)}>{label}
+                    return <a key={label} href={href} ref={ref} className={`navbar-item ${theme.theme == 'dark' ? 'text-black' : 'text-white'}`} onClick={() => handleNavbarItemClick(label)}>{label}
                     </a>
                 })
             }

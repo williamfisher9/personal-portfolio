@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <div className="w-full h-20 flex items-center justify-between px-10">
       <a href="/">
-        <img src="favicon.png" className="size-16" alt="logo-image" />
+        <img src={theme.theme == 'dark' ? 'bg-teal-logo.png' : 'bg-purple-logo.png'} className="size-16" alt="logo-image" />
       </a>
 
       <Navbar navOpenState={navOpenState} closeNav={closeNav} />

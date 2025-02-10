@@ -12,7 +12,7 @@ const IntroductoryMessage = () => {
         </a>
       </div>
 
-      <div className={`rounded-md p-4 ${theme.theme == 'dark' ? 'bg-indigo-500 text-white' : 'bg-[#69bfd0] text-black'}`}>
+      <div className={`rounded-md p-8 ${theme.theme == 'dark' ? 'bg-teal-500 text-black' : 'bg-indigo-500 text-white'}`}>
         <p>
           Over 10 years of experience as a System Implementation and Support Engineer Dedicated Full Stack Developer with [number of years] years of
           experience in [specific programming languages or frameworks]. Seeking

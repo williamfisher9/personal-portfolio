@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./Skills.css";
 import * as myConstants from '../../constants/Constants'
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState("ALL");
   const [listType, setListType] = useState("BOXES");
+
+  const theme = useContext(myConstants.ThemeContext)
 
   const handleTabClick = (itemName) => {
     setActiveTab(itemName);
@@ -26,7 +28,7 @@ const Skills = () => {
         <div className="flex gap-4 justify-center items-center max-[1000px]:text-xs max-[1000px]:gap-0">
           <div
             className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
-              activeTab == "ALL" ? "border-b-4 border-white text-white" : ""
+              activeTab == "ALL" ? `${theme.theme == 'dark' ? 'border-b-4 border-white text-white' :'border-b-4 border-black text-black'}` : ""
             }`}
             onClick={() => handleTabClick("ALL")}
           >
@@ -35,7 +37,7 @@ const Skills = () => {
           <div
             className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
               activeTab == "FRONTEND"
-                ? "border-b-4 border-white text-white"
+                ? `${theme.theme == 'dark' ? 'border-b-4 border-white text-white' :'border-b-4 border-black text-black'}`
                 : ""
             }`}
             onClick={() => handleTabClick("FRONTEND")}
@@ -44,7 +46,7 @@ const Skills = () => {
           </div>
           <div
             className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
-              activeTab == "BACKEND" ? "border-b-4 border-white text-white" : ""
+              activeTab == "BACKEND" ? `${theme.theme == 'dark' ? 'border-b-4 border-white text-white' :'border-b-4 border-black text-black'}` : ""
             }`}
             onClick={() => handleTabClick("BACKEND")}
           >
@@ -53,7 +55,7 @@ const Skills = () => {
           <div
             className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
               activeTab == "INFRASTRUCTURE"
-                ? "border-b-4 border-white text-white"
+                ? `${theme.theme == 'dark' ? 'border-b-4 border-white text-white' :'border-b-4 border-black text-black'}`
                 : ""
             }`}
             onClick={() => handleTabClick("INFRASTRUCTURE")}
@@ -62,7 +64,7 @@ const Skills = () => {
           </div>
           <div
             className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
-              activeTab == "UI/UX" ? "border-b-4 border-white text-white" : ""
+              activeTab == "UI/UX" ? `${theme.theme == 'dark' ? 'border-b-4 border-white text-white' :'border-b-4 border-black text-black'}` : ""
             }`}
             onClick={() => handleTabClick("UI/UX")}
           >
@@ -73,7 +75,7 @@ const Skills = () => {
         <div className="flex gap-4 justify-center items-center">
           <span
             className={`material-symbols-rounded cursor-pointer hover:scale-125 transition duration-300 max-[1000px]:hover:scale-100 ${
-              listType == "BOXES" ? "border-b-4 border-white" : null
+              listType == "BOXES" ? `${theme.theme == 'dark' ? 'border-b-4 border-white' :'border-b-4 border-black'}` : null
             }`}
             onClick={() => setListType("BOXES")}
           >
@@ -81,7 +83,7 @@ const Skills = () => {
           </span>
           <span
             className={`material-symbols-rounded cursor-pointer hover:scale-125 transition duration-300 max-[1000px]:hover:scale-100 ${
-              listType == "LIST" ? "border-b-4 border-white" : null
+              listType == "LIST" ? `${theme.theme == 'dark' ? 'border-b-4 border-white' :'border-b-4 border-black'}` : null
             }`}
             onClick={() => setListType("LIST")}
           >
@@ -102,8 +104,8 @@ const Skills = () => {
                 {
                     return (
                         <div className={`w-56 h-16 border border-zinc-400 rounded-md flex gap-2 items-center px-2 
-     hover:scale-105 hover:bg-[#69bfd0] transition duration-500 hover:transition hover:duration-500 
-    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5]`} key={item.skill_name}>
+     hover:scale-105 transition duration-500 hover:transition hover:duration-500 
+    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5] ${theme.theme == 'dark' ? 'hover:bg-teal-500/50' : 'hover:bg-indigo-500/50'}`} key={item.skill_name}>
                           <img
                             src={item.icon_name}
                             className="size-10"
@@ -131,8 +133,8 @@ const Skills = () => {
             .map((item) => {
               return (
                 <div className={`w-full h-16 border border-zinc-400 rounded-md flex gap-2 items-center px-2 
-     hover:scale-105 hover:bg-[#69bfd0] transition duration-500 hover:transition hover:duration-500 
-    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5]`} key={item.skill_name}>
+     hover:scale-105  transition duration-500 hover:transition hover:duration-500 
+    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5] ${theme.theme == 'dark' ? 'hover:bg-teal-500/50' : 'hover:bg-indigo-500/50'}`} key={item.skill_name}>
                   <div className="w-[12%]">
                     <img
                       src={item.icon_name}
@@ -147,15 +149,15 @@ const Skills = () => {
                     </span>
                   </div>
 
-                  <div className="w-[50%] flex h-2 border border-green-600 rounded-sm">
+                  <div className={`w-[50%] flex h-2 border ${theme.theme == 'dark' ? 'border-yellow-300' : 'border-black' } rounded-sm`}>
                     <div
-                      className={`h-full bg-green-200`}
+                      className={`h-full ${theme.theme == 'dark' ? 'bg-yellow-300' : 'bg-black' }`}
                       style={{ width: `${item.strength}` }}
                     ></div>
                   </div>
 
                   <div className="w-[10%]">
-                    <span className="text-green-200">{item.strength}</span>
+                    <span className={`${theme.theme == 'dark' ? 'text-yellow-300' : 'text-black' }`}>{item.strength}</span>
                   </div>
                 </div>
               );
