@@ -11,6 +11,20 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  @apply bg-zinc-900
+[data-theme='dark'] {
+  @apply bg-zinc-900 text-[#dee4e7]
+}
+
+[data-theme='light'] {
+  @apply bg-[#dee4e7] text-zinc-800
+}
+
+@layer utilities {
+  .btn-light-theme {
+    @apply bg-transparent text-white hover:bg-indigo-600 rounded-md cursor-pointer bg-indigo-500
+  }
+
+  .btn-dark-theme {
+    @apply bg-transparent text-black hover:bg-teal-600 rounded-md cursor-pointer bg-teal-500
+  }
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Skills.css";
-import * as myConstants from '../Constants/Constants'
+import * as myConstants from '../../constants/Constants'
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState("ALL");
@@ -13,19 +13,19 @@ const Skills = () => {
   return (
     <div>
       <div className="mt-8">
-        <a id="skills" className="text-zinc-400 text-[40px] font-bold">
+        <a id="skills" className="text-[40px] font-bold">
           My Tools
         </a>
-        <p className="text-zinc-400">
+        <p>
           Essential tools I use to build exceptional high-performing websites
           and applications.
         </p>
       </div>
 
-      <div className="flex justify-center gap-36 items-center text-zinc-400 mt-8 max-[1000px]:gap-2 max-[1000px]:flex-col">
+      <div className="flex justify-center gap-36 items-center mt-8 max-[1000px]:gap-2 max-[1000px]:flex-col">
         <div className="flex gap-4 justify-center items-center max-[1000px]:text-xs max-[1000px]:gap-0">
           <div
-            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+            className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
               activeTab == "ALL" ? "border-b-4 border-white text-white" : ""
             }`}
             onClick={() => handleTabClick("ALL")}
@@ -33,7 +33,7 @@ const Skills = () => {
             ALL
           </div>
           <div
-            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+            className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
               activeTab == "FRONTEND"
                 ? "border-b-4 border-white text-white"
                 : ""
@@ -43,7 +43,7 @@ const Skills = () => {
             FRONTEND
           </div>
           <div
-            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+            className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
               activeTab == "BACKEND" ? "border-b-4 border-white text-white" : ""
             }`}
             onClick={() => handleTabClick("BACKEND")}
@@ -51,7 +51,7 @@ const Skills = () => {
             BACKEND
           </div>
           <div
-            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+            className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
               activeTab == "INFRASTRUCTURE"
                 ? "border-b-4 border-white text-white"
                 : ""
@@ -61,7 +61,7 @@ const Skills = () => {
             INFRASTRUCTURE
           </div>
           <div
-            className={`flex items-center justify-center px-2 h-10 hover:text-white cursor-pointer ${
+            className={`flex items-center justify-center px-2 h-10  cursor-pointer ${
               activeTab == "UI/UX" ? "border-b-4 border-white text-white" : ""
             }`}
             onClick={() => handleTabClick("UI/UX")}
@@ -101,7 +101,9 @@ const Skills = () => {
             .map((item) => 
                 {
                     return (
-                        <div className={`w-56 skill-item`} key={item.skill_name}>
+                        <div className={`w-56 h-16 border border-zinc-400 rounded-md flex gap-2 items-center px-2 
+     hover:scale-105 hover:bg-[#69bfd0] transition duration-500 hover:transition hover:duration-500 
+    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5]`} key={item.skill_name}>
                           <img
                             src={item.icon_name}
                             className="size-10"
@@ -109,7 +111,7 @@ const Skills = () => {
                           />
                           <div className="flex flex-col">
                             <span className="text-[14px]">{item.skill_name}</span>
-                            <span className="text-[10px] text-zinc-400/80">
+                            <span className="text-[10px]">
                               {item.skill_type}
                             </span>
                           </div>
@@ -128,7 +130,9 @@ const Skills = () => {
             .sort((a, b) => a.skill_name.localeCompare(b.skill_name))
             .map((item) => {
               return (
-                <div className={`w-full skill-item`} key={item.skill_name}>
+                <div className={`w-full h-16 border border-zinc-400 rounded-md flex gap-2 items-center px-2 
+     hover:scale-105 hover:bg-[#69bfd0] transition duration-500 hover:transition hover:duration-500 
+    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5]`} key={item.skill_name}>
                   <div className="w-[12%]">
                     <img
                       src={item.icon_name}
@@ -138,7 +142,7 @@ const Skills = () => {
                   </div>
                   <div className="w-[30%] flex flex-col">
                     <span className="text-[14px]">{item.skill_name}</span>
-                    <span className="text-[10px] text-zinc-400/80">
+                    <span className="text-[10px] ">
                       {item.skill_type}
                     </span>
                   </div>

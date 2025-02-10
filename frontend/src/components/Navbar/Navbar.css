@@ -11,7 +11,7 @@
 }
 
 .navbar-item {
-    @apply rounded-md px-2 py-1 uppercase hover:text-white transition duration-300 
+    @apply rounded-md px-2 py-1 uppercase transition duration-300 
 }
 
 .active-navbar-box {

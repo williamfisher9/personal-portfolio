@@ -1,5 +1,5 @@
 .header-btn {
-    @apply h-10 border border-zinc-400 text-zinc-400 px-8 rounded-md hover:bg-zinc-400 hover:text-zinc-900 max-md:hidden
+    @apply h-10 px-8 max-md:hidden
 }
 
 .menu-icon {

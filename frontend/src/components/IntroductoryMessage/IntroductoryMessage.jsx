@@ -1,14 +1,19 @@
+import { useContext } from "react";
+import { ThemeContext } from "../../constants/Constants";
+
 const IntroductoryMessage = () => {
+  const theme = useContext(ThemeContext)
+
   return (
     <div>
       <div className="mt-8">
-        <a id="about" className="text-zinc-400 text-[40px] font-bold">
+        <a id="about" className="text-[40px] font-bold">
           About Me
         </a>
       </div>
 
-      <div className="bg-gray-800 rounded-md p-4">
-        <p className="text-zinc-400">
+      <div className={`rounded-md p-4 ${theme.theme == 'dark' ? 'bg-indigo-500 text-white' : 'bg-[#69bfd0] text-black'}`}>
+        <p>
           Over 10 years of experience as a System Implementation and Support Engineer Dedicated Full Stack Developer with [number of years] years of
           experience in [specific programming languages or frameworks]. Seeking
           to leverage my expertise in [specific areas of full stack development]

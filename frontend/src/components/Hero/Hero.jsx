@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import "./Hero.css";
+import { ThemeContext } from "../../constants/Constants";
 
 const Hero = () => {
+  const theme = useContext(ThemeContext)
+  
   return (
     <div className="w-full flex justify-between
                      max-[1000px]:flex-col max-[1000px]:items-center max-[1000px]:justify-center">
@@ -9,8 +13,7 @@ const Hero = () => {
       <div className="w-[50%] flex justify-center items-center
                       max-[1000px]:w-full">
         <div className="flex flex-col justify-center mb-4">
-        <div className="text-zinc-400
-                        max-[500px]:text-xs">
+        <div className="max-[500px]:text-xs">
           <div className="flex gap-2 items-center my-4">
             <img
               src="profile.jpg"
@@ -30,14 +33,13 @@ const Hero = () => {
           <h1>Full-Stack Developer</h1>
         </div>
         <div className="flex gap-4 mt-4 max-md:flex-col">
-          <a className="btn flex gap-1 max-md:items-center  max-md:justify-center">
+          <a className={`btn flex gap-1 max-md:items-center  max-md:justify-center ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}>
             Download Resume{" "}
             <span className="material-symbols-rounded">download</span>
           </a>
           <a
             href="#contact"
-            className="btn flex gap-1 max-md:items-center  max-md:justify-center"
-          >
+            className={`btn flex gap-1 max-md:items-center  max-md:justify-center ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}>
             Contact Me{" "}
             <span className="material-symbols-rounded">contact_mail</span>
           </a>
