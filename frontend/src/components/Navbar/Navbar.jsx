@@ -59,7 +59,10 @@ const Navbar = ({navOpenState, closeNav}) => {
 
 
     return (
-        <div className={`navbar-menu ${navOpenState == true && screenWidth < 768 ? (screenWidth < 500 ? 'w-full side-screen-navbar' : 'w-44 side-screen-navbar') : 'mid-screen-navbar'}`}>
+        <div className={`navbar-menu ${navOpenState == true && screenWidth < 768 ? (screenWidth < 500 ? 
+        (localStorage.getItem("theme") == "light" ? 'bg-zinc-500 w-full side-screen-navbar' : 'bg-zinc-800/50 w-full side-screen-navbar') : 
+        (localStorage.getItem("theme") == "light" ? 'bg-zinc-500 w-44 side-screen-navbar' : 'bg-zinc-800/50 w-44 side-screen-navbar')) : 
+        (localStorage.getItem("theme") == "light" ? 'bg-zinc-500 mid-screen-navbar' : 'bg-zinc-800/50 mid-screen-navbar')}`}>
 
             {
                 navOpenState == true ?

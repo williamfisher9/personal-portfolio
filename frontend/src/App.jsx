@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Contact from "./components/Contact/Contact";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
@@ -7,6 +8,9 @@ import ScrollButton from "./components/ScrollButton/ScrollButton";
 import Skills from "./components/Skills/Skills";
 
 const App = () => {
+
+
+
   return (
     <div>
       <Header />

@@ -1,5 +1,5 @@
 .navbar-menu {
-    @apply flex gap-2 bg-zinc-800/50 relative
+    @apply flex gap-2 relative
 }
 
 .mid-screen-navbar {
