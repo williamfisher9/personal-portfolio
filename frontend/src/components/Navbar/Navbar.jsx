@@ -19,39 +19,53 @@ const Navbar = ({navOpenState, closeNav}) => {
     ]
     
     const handleNavbarItemClick = () => {
+        /*
         // update old activeNavbarItem
-        activeNavbarItem.current?.classList.remove('text-zinc-900')
-        activeNavbarItem.current.classList.add('text-zinc-400')
+        //activeNavbarItem.current?.classList.remove('text-white')
+        //activeNavbarItem.current.classList.add('text-black')
 
         // set activeNavbarItem to the new event.target
         activeNavbarItem.current = event.target;
-        activeNavbarItem.current.classList.add('text-zinc-900')
+        //activeNavbarItem.current.classList.add('text-white')
+        console.log("x")
+        activeNavbarItemBox.current.classList.remove('border-black');
+        activeNavbarItemBox.current.classList.remove('border-white');
+
+        if(theme.theme == 'dark' && !navOpenState){
+            activeNavbarItemBox.current.classList.add('border-black');
+        }
+
+        if(theme.theme == 'light' && !navOpenState){
+            activeNavbarItemBox.current.classList.add('border-white');
+        }
         
         activeNavbarItemBox.current.style.left = activeNavbarItem.current.offsetLeft + "px";
         activeNavbarItemBox.current.style.top = activeNavbarItem.current.offsetTop + "px";
         activeNavbarItemBox.current.style.width = activeNavbarItem.current.getBoundingClientRect().width + "px";
         activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";
+
+        */
     };
 
     useEffect(() => {
         window.addEventListener("resize", () => {
             setScreenWidth(window.innerWidth)
             
-            activeNavbarItemBox.current.style.left = activeNavbarItem.current.offsetLeft + "px";
+            /*activeNavbarItemBox.current.style.left = activeNavbarItem.current.offsetLeft + "px";
             activeNavbarItemBox.current.style.top = activeNavbarItem.current.offsetTop + "px";
             activeNavbarItemBox.current.style.width = activeNavbarItem.current.getBoundingClientRect().width + "px";
-            activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";
+            activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";*/
 
             if(window.innerWidth > 768){
                 closeNav()
             }
         });      
 
-        activeNavbarItem.current.classList.add('text-zinc-900')
+        /*activeNavbarItem.current.classList.add('text-zinc-900')
         activeNavbarItemBox.current.style.left = activeNavbarItem.current.offsetLeft + "px";
         activeNavbarItemBox.current.style.top = activeNavbarItem.current.offsetTop + "px";
         activeNavbarItemBox.current.style.width = activeNavbarItem.current.getBoundingClientRect().width + "px";
-        activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";
+        activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";*/
 
         return () => window.removeEventListener("resize", () => setScreenWidth(window.innerWidth));
     }, [])
@@ -63,13 +77,13 @@ const Navbar = ({navOpenState, closeNav}) => {
 
     return (
         <div className={`navbar-menu ${navOpenState == true && screenWidth < 768 ? (screenWidth < 500 ? 
-        (theme.theme == "light" ? 'bg-indigo-500 w-full side-screen-navbar' : 'bg-teal-500 w-full side-screen-navbar') : 
-        (theme.theme == "light" ? 'bg-indigo-500 w-44 side-screen-navbar' : 'bg-teal-500 w-44 side-screen-navbar')) : 
+        (theme.theme == "light" ? 'bg-indigo-500 w-full side-screen-navbar' : 'bg-zinc-800 w-full side-screen-navbar') : 
+        (theme.theme == "light" ? 'bg-indigo-500 w-52 side-screen-navbar' : 'bg-zinc-800 w-44 side-screen-navbar')) : 
         (theme.theme == "light" ? 'bg-indigo-500 mid-screen-navbar' : 'bg-teal-500 mid-screen-navbar')}`}>
 
             {
                 navOpenState == true ?
-                    <span className="material-symbols-rounded absolute text-zinc-400 text-3xl top-2 right-2" onClick={() => closeNav()}>close</span>
+                    <span className="material-symbols-rounded absolute text-white text-3xl top-2 right-2" onClick={() => closeNav()}>close</span>
                 : null
             }
 
@@ -80,7 +94,9 @@ const Navbar = ({navOpenState, closeNav}) => {
                 navbarItems
                 .filter((item) => (screenWidth < 768 && item.menuSize == "all") || (screenWidth < 768 && item.menuSize == "small") || (screenWidth >= 768 && item.menuSize == "all"))
                 .map(({href, label, ref}) => {
-                    return <a key={label} href={href} ref={ref} className={`navbar-item ${theme.theme == 'dark' ? 'text-black' : 'text-white'}`} onClick={() => handleNavbarItemClick(label)}>{label}
+                    return <a key={label} href={href} ref={ref} 
+                    className={`navbar-item ${theme.theme == 'dark' ? (navOpenState ? 'text-white' : 'text-black') : 'text-white'}`} 
+                    onClick={() => handleNavbarItemClick(label)}>{label}
                     </a>
                 })
             }

@@ -31,6 +31,10 @@ const Hero = () => {
           <h1>Software Implementation and Support Engineer</h1>
           <h1>10+ Years of Experiece</h1>
           <h1>Full-Stack Developer</h1>
+
+          
+          <a href="https://github.com/williamfisher9" className={`fa-brands fa-github text-3xl mt-2 ${theme.theme == 'dark' ? 'hover:text-teal-300' : 'hover:text-indigo-500' } hover:scale-110 transition duration-300`}></a>
+
         </div>
         <div className="flex gap-4 mt-4 max-md:flex-col">
           <a className={`btn flex gap-1 max-md:items-center  max-md:justify-center ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}>

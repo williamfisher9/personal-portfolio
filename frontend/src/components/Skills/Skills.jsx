@@ -103,9 +103,11 @@ const Skills = () => {
             .map((item) => 
                 {
                     return (
-                        <div className={`w-56 h-16 border border-zinc-400 rounded-md flex gap-2 items-center px-2 
-     hover:scale-105 transition duration-500 hover:transition hover:duration-500 
-    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5] ${theme.theme == 'dark' ? 'hover:bg-teal-500/50' : 'hover:bg-indigo-500/50'}`} key={item.skill_name}>
+                        <div className={`w-48 h-16 border border-zinc-400 rounded-md flex gap-2 items-center px-2 
+                          hover:scale-105 transition duration-500 hover:transition hover:duration-500 
+                          select-none
+                          ${theme.theme == 'dark' ? 'hover:bg-zinc-800 hover:shadow-[2px_2px_4px_4px_#6fb8a7,-2px_-2px_4px_4px_#6fb8a7]' 
+                          : 'hover:bg-slate-300 hover:shadow-[2px_2px_4px_4px_#6767ef,-2px_-2px_4px_4px_#6767ef]'}`} key={item.skill_name}>
                           <img
                             src={item.icon_name}
                             className="size-10"
@@ -124,7 +126,15 @@ const Skills = () => {
             }
         </div>
       ) : (
-        <div className="px-12 py-4 grid gap-4 place-items-center grid-cols-3 max-[1300px]:grid-cols-2 max-[900px]:grid-cols-1">
+        
+        
+        
+        
+        <div className="px-12 py-4 grid gap-4 place-items-center grid-cols-3 max-[1300px]:grid-cols-2 max-[700px]:grid-cols-1">
+
+
+
+
           {myConstants.SKILLS_ITEMS
             .filter(
               (item) => activeTab == "ALL" || item.skill_type == activeTab
@@ -132,9 +142,13 @@ const Skills = () => {
             .sort((a, b) => a.skill_name.localeCompare(b.skill_name))
             .map((item) => {
               return (
-                <div className={`w-full h-16 border border-zinc-400 rounded-md flex gap-2 items-center px-2 
-     hover:scale-105  transition duration-500 hover:transition hover:duration-500 
-    select-none hover:shadow-[2px_2px_4px_4px_#669ad5,-2px_-2px_4px_4px_#669ad5] ${theme.theme == 'dark' ? 'hover:bg-teal-500/50' : 'hover:bg-indigo-500/50'}`} key={item.skill_name}>
+                <div 
+                className={`w-full flex gap-2 items-center h-16 border border-zinc-500 rounded-md px-2
+                  hover:scale-105 transition duration-500 hover:transition hover:duration-500 
+                  select-none
+                  ${theme.theme == 'dark' ? 'hover:bg-zinc-800 hover:shadow-[2px_2px_4px_4px_#6fb8a7,-2px_-2px_4px_4px_#6fb8a7]' 
+                    : 'hover:bg-slate-300 hover:shadow-[2px_2px_4px_4px_#6767ef,-2px_-2px_4px_4px_#6767ef]'}`} key={item.skill_name}
+                  >
                   <div className="w-[12%]">
                     <img
                       src={item.icon_name}
@@ -149,19 +163,24 @@ const Skills = () => {
                     </span>
                   </div>
 
-                  <div className={`w-[50%] flex h-2 border ${theme.theme == 'dark' ? 'border-yellow-300' : 'border-black' } rounded-sm`}>
+                  <div className={`w-[45%] flex h-2 border ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-700' } rounded-sm`}>
                     <div
-                      className={`h-full ${theme.theme == 'dark' ? 'bg-yellow-300' : 'bg-black' }`}
+                      className={`h-full ${theme.theme == 'dark' ? 'bg-teal-200' : 'bg-indigo-500' }`}
                       style={{ width: `${item.strength}` }}
                     ></div>
                   </div>
 
-                  <div className="w-[10%]">
-                    <span className={`${theme.theme == 'dark' ? 'text-yellow-300' : 'text-black' }`}>{item.strength}</span>
+                  <div className="w-[15%]">
+                    <span className={`${theme.theme == 'dark' ? 'text-teal-500' : 'text-indigo-700' }`}>{item.strength}</span>
                   </div>
                 </div>
               );
             })}
+
+
+
+
+
         </div>
       )}
     </div>

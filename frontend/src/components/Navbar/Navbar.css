@@ -7,7 +7,7 @@
 }
 
 .side-screen-navbar {
-    @apply flex-col justify-center items-center fixed top-0 right-0 h-full max-md:visible md:hidden p-4 bg-zinc-800 z-50
+    @apply flex-col justify-center items-center fixed top-0 right-0 h-full max-md:visible md:hidden p-4 z-50
 }
 
 .navbar-item {
@@ -15,5 +15,5 @@
 }
 
 .active-navbar-box {
-    @apply rounded-md absolute bg-zinc-400 -z-50 transition-[top,left] duration-300
+    /*@apply rounded-md absolute bg-transparent z-50 border transition-[top,left] duration-300*/
 }
