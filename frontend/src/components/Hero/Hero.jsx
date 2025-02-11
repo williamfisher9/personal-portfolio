@@ -33,7 +33,8 @@ const Hero = () => {
           <h1>Full-Stack Developer</h1>
 
           
-          <a href="https://github.com/williamfisher9" className={`fa-brands fa-github text-3xl mt-2 ${theme.theme == 'dark' ? 'hover:text-teal-300' : 'hover:text-indigo-500' } hover:scale-110 transition duration-300`}></a>
+          <a href="https://github.com/williamfisher9" target="_blank"
+          className={`fa-brands fa-github text-3xl mt-2 ${theme.theme == 'dark' ? 'hover:text-teal-300' : 'hover:text-indigo-500' } hover:scale-110 transition duration-300`}></a>
 
         </div>
         <div className="flex gap-4 mt-4 max-md:flex-col">
