@@ -12,7 +12,7 @@ const Navbar = ({navOpenState, closeNav}) => {
     const navbarItems = [
         {href: "#home", label: "home", menuSize: "all", ref: activeNavbarItem},
         {href: "#portfolio", label: "portfolio", menuSize: "all"},
-        {href: "#blog", label: "blog", menuSize: "all"},
+        {href: "blog", label: "blog", menuSize: "all"},
         {href: "#contact", label: "contact", menuSize: "all"},
         {href: "#about", label: "about", menuSize: "all"},
         {href: "#login", label: "login", menuSize: "small"}

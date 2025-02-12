@@ -1,9 +1,7 @@
 from flask import Flask
 
 from src.extensions.app_config import initialize_app
-from src.extensions.extensions import bcrypt
-from src.extensions.extensions import db
-from src.extensions.extensions import jwt
+from src.extensions.extensions import bcrypt, db, jwt, cors
 
 import json
 
@@ -18,6 +16,7 @@ if __name__ == '__main__':
     db.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
+    cors.init_app(app)
 
     app.register_blueprint(users_blueprint)
     app.register_blueprint(blog_blueprint)

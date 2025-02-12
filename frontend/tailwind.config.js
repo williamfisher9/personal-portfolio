@@ -10,6 +10,6 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [tailwindScrollbar],
+  plugins: [tailwindScrollbar, require("@tailwindcss/typography")],
 }
 

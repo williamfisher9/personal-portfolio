@@ -1,12 +1,15 @@
 import { useState } from "react";
 import Contact from "./components/Contact/Contact";
-import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import IntroductoryMessage from "./components/IntroductoryMessage/IntroductoryMessage";
 import Portfolio from "./components/Portfolio/Portfolio";
 import ScrollButton from "./components/ScrollButton/ScrollButton";
 import Skills from "./components/Skills/Skills";
 import { ThemeContext } from "./constants/Constants";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
+import Blog from "./components/Blog/Blog";
+import NewPost from "./components/Blog/NewPost/NewPost";
 
 const App = () => {
   const [theme, setTheme] = useState(window.localStorage.getItem("theme") || "dark");
@@ -14,16 +17,16 @@ const App = () => {
   return (
     <ThemeContext.Provider value={{theme, setTheme}}>
       <div data-theme={theme}>
-        <Header />
-        <div className="px-32 py-8 max-[1000px]:px-5 max-[1000px]:py-4">
-          <Hero />
-          <IntroductoryMessage />
-          <Skills />
-          <Contact />
-          <Portfolio />
-          <ScrollButton />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<><Hero /><IntroductoryMessage /><Skills /><Contact /><Portfolio /><ScrollButton /></>}></Route>
+                <Route path="/blog" element={<Blog />}></Route>
+                <Route path="/blog/post/new" element={<NewPost />}></Route>
+              </Route>
+            </Routes>
+          </BrowserRouter>
         </div>
-      </div>
     </ThemeContext.Provider>
   );
 };
