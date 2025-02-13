@@ -3,8 +3,9 @@ from flask_jwt_extended import create_access_token, jwt_required
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
 
-from src.extensions.extensions import bcrypt, jwt
+from src.extensions.extensions import bcrypt, db
 from src.messages.response_message import ResponseMessage
+from src.model.blog import Blog
 from src.model.user import User
 from src.schemas.login_template import user_login_request_schema
 
@@ -36,4 +37,16 @@ def authenticate_user():
 @blog_blueprint.route("/posts", methods=['GET'])
 @jwt_required()
 def get_all_posts():
-    return "success", 200
+    blogs = Blog.query.all()
+
+    response_message = ResponseMessage([blog.to_dict() for blog in blogs], 200)
+    return response_message.create_response_message()
+
+@blog_blueprint.route("/posts/new", methods=['POST'])
+@jwt_required()
+def create_post():
+    print(request.get_json())
+    blog = Blog(request.get_json()['title'], request.get_json()['description'], request.get_json()['post_contents'])
+    db.session.add_all([blog])
+    db.session.commit()
+    return "created", 201

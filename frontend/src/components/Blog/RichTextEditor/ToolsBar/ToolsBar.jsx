@@ -4,13 +4,15 @@ import { BiBold, BiItalic, BiAlignLeft, BiAlignMiddle, BiAlignRight,
     BiHeading} from "react-icons/bi"
 
 import './ToolsBar.css'
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ThemeContext } from "../../../../constants/Constants"
 import ToolButton from "./ToolButton/ToolButton"
 import { BsTypeH1, BsTypeH2, BsTypeH3 } from "react-icons/bs"
+import ImageSelector from "../ImageSelector/ImageSelector"
 
 const ToolsBar = ({editor}) => {
     const theme = useContext(ThemeContext)
+    const [showImageSelector, setShowImageSelector] = useState(false)
 
     const tools = [
         { task: "h1", icon: <BsTypeH1 className="toolbar-icon" /> },
@@ -22,7 +24,7 @@ const ToolsBar = ({editor}) => {
       { task: "underline", icon: <BiUnderline className="toolbar-icon" /> },
       { task: "codealt", icon: <BiCodeAlt className="toolbar-icon" /> },
       { task: "codecurly", icon: <BiCodeCurly className="toolbar-icon" /> },
-      { task: "imagealt", icon: <BiImageAlt className="toolbar-icon" /> },
+      { task: "image", icon: <BiImageAlt className="toolbar-icon" /> },
       { task: "orderedList", icon: <BiListOl className="toolbar-icon" /> },
       { task: "bulletList", icon: <BiListUl className="toolbar-icon" /> },
       { task: "right", icon: <BiAlignRight className="toolbar-icon" /> },
@@ -62,10 +64,40 @@ const ToolsBar = ({editor}) => {
           return editor?.chain().focus().setTextAlign('center').run();
         case "left":
           return editor?.chain().focus().setTextAlign('left').run();
+        case "image":
+          setShowImageSelector(true)
+
+
+          
       }
     };
 
+
+    const [file, setFile] = useState(null)
+
+    const storeFileHere = (file) => {
+      console.log(file)
+
+
+      const urlFor = window.URL.createObjectURL(file)
+
+      console.log(urlFor)
+
+      editor.commands.setImage({
+        src: urlFor,
+        alt: 'A boring example image',
+        title: 'An example',
+      })
+    }
+
+    const closeImageSelector = () => {
+      setShowImageSelector(false)
+    }
+
     return (
+      <>
+      <ImageSelector visible={showImageSelector} storeFileHere={storeFileHere} closeImageSelector={closeImageSelector}/>
+        
         <div className={`container border rounded-t-md w-full flex py-4 gap-4 px-4 ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`} >
             {
                 tools.map(({task, icon}) => {
@@ -73,6 +105,7 @@ const ToolsBar = ({editor}) => {
                 })
             }
         </div>
+        </>
     )
 }
 

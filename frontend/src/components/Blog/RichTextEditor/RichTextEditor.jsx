@@ -7,15 +7,18 @@ import { ThemeContext } from '../../../constants/Constants';
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
 import Placeholder from '@tiptap/extension-placeholder'
+import Image from '@tiptap/extension-image';
+import axios from 'axios';
 
 const extensions = [
   StarterKit.configure({heading: {levels: [1, 2, 3]}}), 
   Underline,
   TextAlign.configure({types: ['heading', 'paragraph'], alignments: ['left', 'right', 'center'], defaultAlignment: 'left'}), 
   Placeholder.configure({placeholder: "Write something..."}),
+  Image.configure({})
 ]
 
-const RichTextEditor = () => {
+const RichTextEditor = ({onRichTextEditorChange}) => {
   const theme = useContext(ThemeContext)
 
   const editor = useEditor({
@@ -27,9 +30,24 @@ const RichTextEditor = () => {
     },
   })
 
+  const saveBlogPost = () => {
+    console.log(editor.getHTML())
+
+    onRichTextEditorChange(editor.getHTML())    
+  }
+
   return <div className={`flex flex-col ${theme.theme == 'dark' ? 'text-teal-500' : 'text-indigo-500'}`}>
     <ToolsBar editor={editor} />
     <EditorContent editor={editor}/>
+
+    
+
+    <button className={`btn flex gap-1 max-md:items-center  max-md:justify-center ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}
+    onClick={saveBlogPost}
+    >
+        Save{" "}
+       <span className="material-symbols-rounded">save</span>
+    </button>
   </div>
 }
 
