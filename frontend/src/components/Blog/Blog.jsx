@@ -11,7 +11,7 @@ const Blog = () => {
 
     useEffect(() => {
         console.log(window.localStorage.getItem("token"))
-        axios.get("http://localhost:9999/api/v1/blog/posts", {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
+        axios.get("http://localhost:9999/api/v1/blog/posts")
         .then((res) => {
             console.log(res.data.message)
             setPosts(res.data.message)
@@ -27,7 +27,7 @@ const Blog = () => {
 
 
     const reloadData = () => {
-        axios.get("http://localhost:9999/api/v1/blog/posts", {headers: {'Authorization': `Bearer ${window.localStorage.getItem("token")}`}})
+        axios.get("http://localhost:9999/api/v1/blog/posts")
         .then((res) => {
             console.log(res.data.message)
             setPosts(res.data.message)

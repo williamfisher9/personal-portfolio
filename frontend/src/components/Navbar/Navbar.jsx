@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import './Navbar.css'
 import { useContext, useEffect, useRef, useState } from 'react';
 import { ThemeContext } from '../../constants/Constants';
+import { HashLink } from 'react-router-hash-link';
 
 const Navbar = ({navOpenState, closeNav}) => {
     //const [activeLink, setActiveLink] = useState("home");
@@ -10,16 +11,15 @@ const Navbar = ({navOpenState, closeNav}) => {
     const activeNavbarItem = useRef(null)
 
     const navbarItems = [
-        {href: "#home", label: "home", menuSize: "all", ref: activeNavbarItem},
-        {href: "#portfolio", label: "portfolio", menuSize: "all"},
-        {href: "blog", label: "blog", menuSize: "all"},
-        {href: "#contact", label: "contact", menuSize: "all"},
-        {href: "#about", label: "about", menuSize: "all"},
+        {href: "/home", label: "home", menuSize: "all", ref: activeNavbarItem},
+        {href: "/home#portfolio", label: "portfolio", menuSize: "all"},
+        {href: "/blog", label: "blog", menuSize: "all"},
+        {href: "/home#contact", label: "contact", menuSize: "all"},
         {href: "#login", label: "login", menuSize: "small"}
     ]
     
-    const handleNavbarItemClick = () => {
-        /*
+    /*const handleNavbarItemClick = () => {
+        
         // update old activeNavbarItem
         //activeNavbarItem.current?.classList.remove('text-white')
         //activeNavbarItem.current.classList.add('text-black')
@@ -44,8 +44,8 @@ const Navbar = ({navOpenState, closeNav}) => {
         activeNavbarItemBox.current.style.width = activeNavbarItem.current.getBoundingClientRect().width + "px";
         activeNavbarItemBox.current.style.height = activeNavbarItem.current.getBoundingClientRect().height + "px";
 
-        */
-    };
+        
+    };*/
 
     useEffect(() => {
         window.addEventListener("resize", () => {
@@ -94,10 +94,11 @@ const Navbar = ({navOpenState, closeNav}) => {
                 navbarItems
                 .filter((item) => (screenWidth < 768 && item.menuSize == "all") || (screenWidth < 768 && item.menuSize == "small") || (screenWidth >= 768 && item.menuSize == "all"))
                 .map(({href, label, ref}) => {
-                    return <a key={label} href={href} ref={ref} 
+                    return <HashLink key={label} to={href} ref={ref} 
                     className={`navbar-item ${theme.theme == 'dark' ? (navOpenState ? 'text-white' : 'text-black') : 'text-white'}`} 
-                    onClick={() => handleNavbarItemClick(label)}>{label}
-                    </a>
+                    /*onClick={() => handleNavbarItemClick(label)}*/>
+                        {label}
+                    </HashLink>
                 })
             }
 
