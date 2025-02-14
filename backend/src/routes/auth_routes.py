@@ -5,12 +5,10 @@ from jsonschema.validators import validate
 
 from src.extensions.extensions import bcrypt, db
 from src.messages.response_message import ResponseMessage
-from src.model.blog import Blog
 from src.model.user import User
 from src.schemas.login_template import user_login_request_schema
 
 users_blueprint = Blueprint("users_blueprint", __name__, url_prefix="/api/v1/users")
-blog_blueprint = Blueprint("blog_blueprint", __name__, url_prefix="/api/v1/blog")
 
 @users_blueprint.route("/login", methods=['POST'])
 def authenticate_user():
@@ -34,19 +32,3 @@ def authenticate_user():
     response_message = ResponseMessage(create_access_token(fetched_user.email_address), 200)
     return response_message.create_response_message()
 
-@blog_blueprint.route("/posts", methods=['GET'])
-@jwt_required()
-def get_all_posts():
-    blogs = Blog.query.all()
-
-    response_message = ResponseMessage([blog.to_dict() for blog in blogs], 200)
-    return response_message.create_response_message()
-
-@blog_blueprint.route("/posts/new", methods=['POST'])
-@jwt_required()
-def create_post():
-    print(request.get_json())
-    blog = Blog(request.get_json()['title'], request.get_json()['description'], request.get_json()['post_contents'])
-    db.session.add_all([blog])
-    db.session.commit()
-    return "created", 201

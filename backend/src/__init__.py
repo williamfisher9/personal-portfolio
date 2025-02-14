@@ -6,7 +6,8 @@ from src.extensions.extensions import bcrypt, db, jwt, cors
 import json
 
 from src.extensions.initialize_database import initialize_database
-from src.routes.routes import users_blueprint, blog_blueprint
+from src.routes.auth_routes import users_blueprint
+from src.routes.blog_routes import blog_blueprint
 
 if __name__ == '__main__':
     initialize_app()
