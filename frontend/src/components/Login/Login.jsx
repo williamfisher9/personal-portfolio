@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
+import Cookies from "js-cookie";
 
 const Login = ({ closeLoginForm }) => {
   const theme = useContext(ThemeContext);
@@ -42,7 +43,7 @@ const Login = ({ closeLoginForm }) => {
       .post("http://localhost:9999/api/v1/users/login", { username, password })
       .then((res) => {
         console.log(res.data.message);
-        window.localStorage.setItem("token", res.data.message);
+        Cookies.set("token", res.data.message);
         closeLoginForm();
         navigate("/blog");
       }).catch((err) => {

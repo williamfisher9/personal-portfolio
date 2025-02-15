@@ -10,9 +10,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Blog from "./components/Blog/Blog";
 import NewPost from "./components/Blog/NewPost/NewPost";
+import Cookies from "js-cookie";
 
 const App = () => {
-  const [theme, setTheme] = useState(window.localStorage.getItem("theme") || "dark");
+  const [theme, setTheme] = useState(window.localStorage.getItem('theme') || "dark");
 
   return (
     <ThemeContext.Provider value={{theme, setTheme}}>

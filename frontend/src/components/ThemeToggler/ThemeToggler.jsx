@@ -6,7 +6,7 @@ const ThemeToggler = () => {
   const theme = useContext(ThemeContext);
 
   const toggleTheme = (type) => {
-      window.localStorage.setItem("theme", type);
+    window.localStorage.setItem("theme", type);
       theme.setTheme(type);
   };
 

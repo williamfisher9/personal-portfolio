@@ -2,20 +2,21 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../../../constants/Constants";
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const NewPost = () => {
   const theme = useContext(ThemeContext);
 
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  const [editorText, setEditorText] = useState("")
+  const [setEditorText] = useState("")
 
   const onRichTextEditorChange = (val) => {
     setEditorText(val)
     console.log(val)
 
     axios.post("http://localhost:9999/api/v1/blog/posts/new", 
-    {title: title, description: description, post_contents: val}, {headers: {"Authorization": `Bearer ${window.localStorage.getItem('token')}`}})
+    {title: title, description: description, post_contents: val}, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
     .then((res) => {
       console.log(res)
     })
