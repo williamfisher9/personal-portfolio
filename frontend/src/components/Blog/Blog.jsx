@@ -11,7 +11,6 @@ const Blog = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        console.log(Cookies.get('token'))
         axios.get("http://localhost:9999/api/v1/blog/posts")
         .then((res) => {
             console.log(res.data.message)

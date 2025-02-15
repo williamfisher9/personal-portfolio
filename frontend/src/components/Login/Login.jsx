@@ -44,6 +44,7 @@ const Login = ({ closeLoginForm }) => {
       .then((res) => {
         console.log(res.data.message);
         Cookies.set("token", res.data.message);
+        Cookies.set("isAuthenticated", true);
         closeLoginForm();
         navigate("/blog");
       }).catch((err) => {
