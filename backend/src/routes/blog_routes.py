@@ -14,6 +14,16 @@ def get_all_posts():
     response_message = ResponseMessage([blog.to_dict() for blog in blogs], 200)
     return response_message.create_response_message()
 
+@blog_blueprint.route("/posts/search/<search_title>", methods=['GET'])
+def search_posts_by_title(search_title):
+    if search_title == "-":
+        blogs = Blog.query.all()
+    else:
+        search = "%{}%".format(search_title)
+        blogs = Blog.query.filter(Blog.title.like(search)).all()
+    response_message = ResponseMessage([blog.to_dict() for blog in blogs], 200)
+    return response_message.create_response_message()
+
 @blog_blueprint.route("/posts/new", methods=['POST'])
 @jwt_required()
 def create_post():

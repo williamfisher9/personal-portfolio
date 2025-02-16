@@ -1,7 +1,8 @@
 import { BiBold, BiItalic, BiAlignLeft, BiAlignMiddle, BiAlignRight, 
     BiCodeAlt, BiCodeCurly, BiImageAlt, BiListOl, BiListUl, 
     BiStrikethrough, BiUnderline, 
-    BiHeading} from "react-icons/bi"
+    BiHeading,
+    BiAlignJustify} from "react-icons/bi"
 
 import './ToolsBar.css'
 import { useContext, useState } from "react"
@@ -27,9 +28,10 @@ const ToolsBar = ({editor}) => {
       { task: "image", icon: <BiImageAlt className="toolbar-icon" /> },
       { task: "orderedList", icon: <BiListOl className="toolbar-icon" /> },
       { task: "bulletList", icon: <BiListUl className="toolbar-icon" /> },
-      { task: "right", icon: <BiAlignRight className="toolbar-icon" /> },
-      { task: "center", icon: <BiAlignMiddle className="toolbar-icon" /> },
       { task: "left", icon: <BiAlignLeft className="toolbar-icon" /> },
+      { task: "center", icon: <BiAlignMiddle className="toolbar-icon" /> },
+      { task: "right", icon: <BiAlignRight className="toolbar-icon" /> },
+      { task: "justify", icon: <BiAlignJustify className="toolbar-icon" /> },
     ];
 
     const handleOnClick = (task) => {
@@ -64,6 +66,8 @@ const ToolsBar = ({editor}) => {
           return editor?.chain().focus().setTextAlign('center').run();
         case "left":
           return editor?.chain().focus().setTextAlign('left').run();
+        case "justify":
+          return editor?.chain().focus().setTextAlign('justify').run();
         case "image":
           setShowImageSelector(true)
 
@@ -94,19 +98,17 @@ const ToolsBar = ({editor}) => {
       setShowImageSelector(false)
     }
 
-    return (
-      <>
-      <ImageSelector visible={showImageSelector} storeFileHere={storeFileHere} closeImageSelector={closeImageSelector}/>
+    return <div className="tools-bar-container">
+        <ImageSelector visible={showImageSelector} storeFileHere={storeFileHere} closeImageSelector={closeImageSelector}/>
         
-        <div className={`container border rounded-t-md w-full flex py-4 gap-4 px-4 ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`} >
+        <div className={`container border-2 rounded-t-md w-full flex py-4 gap-4 px-4 ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`} >
             {
                 tools.map(({task, icon}) => {
                     return <ToolButton key={task} active={editor?.isActive(task) || editor?.isActive({textAlign: task})} onClick={() => handleOnClick(task)}>{icon}</ToolButton>
                 })
             }
         </div>
-        </>
-    )
+    </div>
 }
 
 export default ToolsBar

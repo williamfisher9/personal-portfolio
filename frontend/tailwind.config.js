@@ -8,7 +8,16 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            maxWidth: "100ch",
+            color: "white",
+          },
+        },
+      })
+    },
   },
   plugins: [tailwindScrollbar, require("@tailwindcss/typography")],
 }

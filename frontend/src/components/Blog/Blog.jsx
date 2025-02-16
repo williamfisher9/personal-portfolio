@@ -13,7 +13,6 @@ const Blog = () => {
     useEffect(() => {
         axios.get("http://localhost:9999/api/v1/blog/posts")
         .then((res) => {
-            console.log(res.data.message)
             setPosts(res.data.message)
         })
         .catch((err) => {
@@ -25,11 +24,9 @@ const Blog = () => {
         navigate('/blog/post/new')
     }
 
-
-    const reloadData = () => {
-        axios.get("http://localhost:9999/api/v1/blog/posts")
+    const handleSearchBarChange = () => {
+        axios.get(`http://localhost:9999/api/v1/blog/posts/search/${event.target.value == "" ? "-" : event.target.value}`)
         .then((res) => {
-            console.log(res.data.message)
             setPosts(res.data.message)
         })
         .catch((err) => {
@@ -37,26 +34,44 @@ const Blog = () => {
         })
     }
 
-    return <div className={`blog-container px-4 py-4 rounded-md`}>
+    return <div className={`blog-container px-4 rounded-md`}>
+        <div className="flex gap-4 mb-14 items-center justify-center">
+            
 
-        {
-            Cookies.get('isAuthenticated') ?
-            <div className="flex gap-4">
-            <a className={`btn flex gap-1 max-md:items-center  max-md:justify-center ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}
-            onClick={handleNewPostRequest}>
-                NEW POST{" "}
-                <span className="material-symbols-rounded">add</span>
-            </a>
 
-            <a onClick={reloadData} className={`btn flex gap-1 max-md:items-center  max-md:justify-center ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}>
-                RELOAD{" "}
-                <span className="material-symbols-rounded">refresh</span>
-            </a>
+        <div
+          className={`relative h-12 border-2 rounded-md text-lg  w-[80%] md:w-[700px] ${
+            theme.theme == "dark"
+              ? "border-teal-700 bg-teal-500/20 text-white"
+              : "border-indigo-700 bg-indigo-500/20 text-black"
+          }`}
+        >
+          <input
+            type="text"
+            placeholder="Search Blog"
+            id="searchBarVal"
+            name="searchBarVal"
+            className="absolute top-0 left-0 w-full
+             h-full pl-2 bg-transparent border-none outline-none rounded-md"
+            onChange={handleSearchBarChange}
+          />
         </div>
-        : null
-        }
 
-        <div className="posts-container grid grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))]">
+
+
+
+                {
+                    Cookies.get('isAuthenticated') ?
+                    <a className={`btn flex  gap-1 items-center h-12 justify-center ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`}
+                    onClick={handleNewPostRequest}>
+                        NEW POST{" "}
+                        <span className="material-symbols-rounded">add</span>
+                    </a>
+                : null
+                }
+        </div>
+
+        <div className="posts-container grid gap-10 grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))]">
 
             {
                 posts.map(({id, title, description, post_contents}) => {
@@ -78,9 +93,17 @@ const Blog = () => {
                         }
 
                         <div className="post-btns flex gap-2 mt-4">
-                            <button className="bg-teal-800 hover:bg-teal-900 rounded-md px-3 py-1">Read</button>
-                            <button className="bg-teal-800 hover:bg-teal-900 rounded-md px-3 py-1">Edit</button>
-                            <button className="bg-teal-800 hover:bg-teal-900 rounded-md px-3 py-1">Delete</button>
+                            <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`}>Read</button>
+                            
+                            {
+                                Cookies.get('isAuthenticated') ?
+                                <>
+                                    <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`}>Edit</button>
+                                    <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`}>Delete</button>
+                                </>
+                                : null
+                            }
+                            
                         </div>
 
                     </div>

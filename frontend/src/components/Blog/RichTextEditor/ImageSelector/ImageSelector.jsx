@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { IoMdClose } from "react-icons/io"
+import { ThemeContext } from "../../../../constants/Constants"
 
 const ImageSelector = ({visible, closeImageSelector, storeFileHere}) => {
     const [file, setFile] = useState(null)
@@ -11,6 +12,7 @@ const ImageSelector = ({visible, closeImageSelector, storeFileHere}) => {
         storeFileHere(event.target.files[0])
     }
 
+    const theme = useContext(ThemeContext)
 
     if(!visible) return
 
@@ -22,14 +24,17 @@ const ImageSelector = ({visible, closeImageSelector, storeFileHere}) => {
                     closeImageSelector()
                 }
             }}
-            className="fixed inset-0 bg-black backdrop-blur-sm bg-opacity-40 flex items-center justify-center z-50">
+            className={`${theme.theme == "dark" ? "bg-teal-900" : "bg-indigo-900"} fixed inset-0 backdrop-blur-sm bg-opacity-40 flex items-center justify-center z-50`}>
 
-        <div className="relative w-[80%] h-[80%] md:w-[760px] overflow-y-auto bg-white rounded-md p-8">
+        <div className="relative w-[80%] md:w-[760px] overflow-y-auto bg-black rounded-md p-8">
 
             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="file_input">Upload file</label>
             <input 
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer 
-            bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+            className={`${theme.theme == "dark"
+                ? "border-teal-700 bg-teal-500/20 text-white"
+                : "border-indigo-700 bg-indigo-500/20 text-black"
+            }} block w-full text-sm text-gray-900 border rounded-lg cursor-pointer 
+            dark:text-gray-400 focus:outline-none`}
             aria-describedby="file_input_help" id="file_input" type="file" 
             onChange={handleFileInputChange}/>
             
