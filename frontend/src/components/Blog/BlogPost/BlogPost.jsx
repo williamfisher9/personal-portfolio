@@ -21,6 +21,8 @@ const BlogPost = () => {
 
         <div className="text-2xl text-center">{post.title}</div>
 
+        <img src={post.main_image_source} alt={post.title} className="max-h-96 object-contain"/>
+
         <div className="txt-md">{post.description}</div>
 
         <div dangerouslySetInnerHTML={{ __html: post.post_contents }} />

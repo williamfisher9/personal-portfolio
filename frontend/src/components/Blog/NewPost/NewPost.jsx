@@ -48,7 +48,7 @@ const NewPost = () => {
       formData.append("title", title)
       formData.append("description", description)
       formData.append("post_contents", editorText)
-      formData.append("main_image", mainImage)
+      formData.append("file", mainImage)
 
       console.log("xxxxx")
 

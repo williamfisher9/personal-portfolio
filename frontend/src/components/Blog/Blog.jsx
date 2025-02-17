@@ -38,6 +38,24 @@ const Blog = () => {
         navigate("/blog/posts/"+id)
     }
 
+    const deletePostById = (id) => {
+        axios.delete("http://localhost:9999/api/v1/blog/posts/" + id, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
+        .then((res) => {
+            if(res.status == 200){
+                axios.get("http://localhost:9999/api/v1/blog/posts")
+        .then((res) => {
+            setPosts(res.data.message)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+
     return <div className={`blog-container px-4 rounded-md`}>
         <div className="flex gap-4 mb-14 items-center justify-center">
             
@@ -78,7 +96,8 @@ const Blog = () => {
         <div className="posts-container grid gap-10 grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))]">
 
             {
-                posts.map(({id, title, description}) => {
+                posts.map(({id, title, description, main_image_source}) => {
+                    console.log(main_image_source)
                     return <div key={id} className={`relative m-4 p-4 border ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'} rounded-md`}>
                         <div style={{clipPath: "polygon(9% 0, 100% 0%, 91% 100%, 0 100%)"}}
                          className={`absolute top-[-20px] laft-[20px] ${theme.theme == 'dark' ? 'bg-teal-800' : 'bg-indigo-800'} px-10 py-1 border border-teal-500`}>
@@ -86,7 +105,7 @@ const Blog = () => {
                         </div>
 
                         <div className="flex items-center justify-center py-4">
-                            <img src="images.jpg" className="w-[90%] h-32 object-contain" />
+                            <img src={main_image_source} className="w-[90%] h-32 object-contain" />
                         </div>
 
                         <div className="">
@@ -104,7 +123,7 @@ const Blog = () => {
                                 Cookies.get('isAuthenticated') ?
                                 <>
                                     <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`}>Edit</button>
-                                    <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`}>Delete</button>
+                                    <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`} onClick={() => deletePostById(id)}>Delete</button>
                                 </>
                                 : null
                             }

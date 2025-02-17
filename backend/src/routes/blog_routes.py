@@ -45,12 +45,30 @@ def search_posts_by_title(search_title):
 @blog_blueprint.route("/posts/new", methods=['POST'])
 @jwt_required()
 def create_post():
-    print(request.get_json())
-    print(request.values)
-    blog = Blog(request.get_json()['title'], request.get_json()['description'], request.get_json()['post_contents'])
-    db.session.add_all([blog])
-    db.session.commit()
-    return "created", 201
+    if 'file' not in request.files:
+        response_message = ResponseMessage("File was not found in the request", 400)
+        return response_message.create_response_message()
+
+    file = request.files['file']
+    # If the user does not select a file, the browser submits an
+    # empty file without a filename.
+    if file.filename == '':
+        response_message = ResponseMessage("Improper file name", 400)
+        return response_message.create_response_message()
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join("C://Users//william.fisher//Desktop//app_files//images", filename))
+
+        blog = Blog(request.form['title'],
+                    request.form['description'],
+                    request.form['post_contents'],
+                    filename)
+        db.session.add_all([blog])
+        db.session.commit()
+
+        response_message = ResponseMessage("post created successfully", 201)
+        return response_message.create_response_message()
 
 @blog_blueprint.route("/posts/upload", methods=['POST'])
 @jwt_required()
@@ -112,5 +130,20 @@ def get_post_by_id(id):
         response_message = ResponseMessage("Post was not found", 404)
         return response_message.create_response_message()
     else:
+        post.main_image_source = get_profile_img_link(post.main_image_source)
         response_message = ResponseMessage(post.to_dict(), 200)
+        return response_message.create_response_message()
+
+@blog_blueprint.route("/posts/<id>", methods=['DELETE'])
+@jwt_required()
+def delete_post_by_id(id):
+    blog = Blog.query.filter_by(id=id).first()
+    if not blog:
+        response_message = ResponseMessage("Blog was not found", 404)
+        return response_message.create_response_message()
+    else:
+        db.session.delete(blog)
+        db.session.commit()
+
+        response_message = ResponseMessage("deleted successfully", 200)
         return response_message.create_response_message()
