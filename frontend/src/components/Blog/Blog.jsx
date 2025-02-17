@@ -21,7 +21,7 @@ const Blog = () => {
     }, [])
 
     const handleNewPostRequest = () => {
-        navigate('/blog/post/new')
+        navigate('/blog/posts/new')
     }
 
     const handleSearchBarChange = () => {
@@ -32,6 +32,10 @@ const Blog = () => {
         .catch((err) => {
             console.log(err)
         })
+    }
+
+    const readPost = (id) => {
+        navigate("/blog/posts/"+id)
     }
 
     return <div className={`blog-container px-4 rounded-md`}>
@@ -74,7 +78,7 @@ const Blog = () => {
         <div className="posts-container grid gap-10 grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))]">
 
             {
-                posts.map(({id, title, description, post_contents}) => {
+                posts.map(({id, title, description}) => {
                     return <div key={id} className={`relative m-4 p-4 border ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'} rounded-md`}>
                         <div style={{clipPath: "polygon(9% 0, 100% 0%, 91% 100%, 0 100%)"}}
                          className={`absolute top-[-20px] laft-[20px] ${theme.theme == 'dark' ? 'bg-teal-800' : 'bg-indigo-800'} px-10 py-1 border border-teal-500`}>
@@ -89,11 +93,12 @@ const Blog = () => {
                             <p className="mt-2">{description}</p>
                         </div>
                         
-                        {//<div dangerouslySetInnerHTML={{ __html: post_contents }} />
-                        }
+                        
 
                         <div className="post-btns flex gap-2 mt-4">
-                            <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`}>Read</button>
+                            <button className={`${theme.theme == 'dark' ? 'bg-teal-500 hover:bg-teal-600 text-black' : 'bg-indigo-500 hover:bg-indigo-600 text-white'} rounded-md px-3 py-1`}
+                            onClick={() => readPost(id)}
+                            >Read</button>
                             
                             {
                                 Cookies.get('isAuthenticated') ?

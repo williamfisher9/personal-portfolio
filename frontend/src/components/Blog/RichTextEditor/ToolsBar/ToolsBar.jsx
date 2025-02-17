@@ -1,7 +1,6 @@
 import { BiBold, BiItalic, BiAlignLeft, BiAlignMiddle, BiAlignRight, 
     BiCodeAlt, BiCodeCurly, BiImageAlt, BiListOl, BiListUl, 
     BiStrikethrough, BiUnderline, 
-    BiHeading,
     BiAlignJustify} from "react-icons/bi"
 
 import './ToolsBar.css'
@@ -69,39 +68,30 @@ const ToolsBar = ({editor}) => {
         case "justify":
           return editor?.chain().focus().setTextAlign('justify').run();
         case "image":
-          setShowImageSelector(true)
-
-
-          
+          setShowImageSelector(true)  
       }
     };
 
 
-    const [file, setFile] = useState(null)
+    const [imagesStore, setImagesStore] = useState([])
 
-    const storeFileHere = (file) => {
-      console.log(file)
-
-
-      const urlFor = window.URL.createObjectURL(file)
-
-      console.log(urlFor)
-
+    const storeInsertedFile = (source) => {
       editor.commands.setImage({
-        src: urlFor,
-        alt: 'A boring example image',
+        src: source,
+        alt: "alt text",
         title: 'An example',
       })
+
     }
 
     const closeImageSelector = () => {
       setShowImageSelector(false)
     }
 
-    return <div className="tools-bar-container">
-        <ImageSelector visible={showImageSelector} storeFileHere={storeFileHere} closeImageSelector={closeImageSelector}/>
+    return <div className="">
+        <ImageSelector visible={showImageSelector} storeInsertedFile={storeInsertedFile} closeImageSelector={closeImageSelector}/>
         
-        <div className={`container border-2 rounded-t-md w-full flex py-4 gap-4 px-4 ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`} >
+        <div className={`border-2 rounded-t-md flex py-4 gap-4 px-4 ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`} >
             {
                 tools.map(({task, icon}) => {
                     return <ToolButton key={task} active={editor?.isActive(task) || editor?.isActive({textAlign: task})} onClick={() => handleOnClick(task)}>{icon}</ToolButton>

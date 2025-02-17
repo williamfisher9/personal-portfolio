@@ -10,7 +10,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Blog from "./components/Blog/Blog";
 import NewPost from "./components/Blog/NewPost/NewPost";
-import Cookies from "js-cookie";
+import BlogPost from "./components/Blog/BlogPost/BlogPost";
 
 const App = () => {
   const [theme, setTheme] = useState(window.localStorage.getItem('theme') || "dark");
@@ -24,7 +24,8 @@ const App = () => {
                 <Route index element={<><Hero /><IntroductoryMessage /><Skills /><Contact /><Portfolio /><ScrollButton /></>}></Route>
                 <Route path="/home" element={<><Hero /><IntroductoryMessage /><Skills /><Contact /><Portfolio /><ScrollButton /></>}></Route>
                 <Route path="/blog" element={<Blog />}></Route>
-                <Route path="/blog/post/new" element={<NewPost />}></Route>
+                <Route path="/blog/posts/new" element={<NewPost />}></Route>
+                <Route path="/blog/posts/:id" element={<BlogPost />}></Route>
               </Route>
             </Routes>
           </BrowserRouter>
