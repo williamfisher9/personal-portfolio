@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import Cookies from "js-cookie";
 
-const Login = ({ closeLoginForm }) => {
+const Login = ({ closeLoginForm, navigateTo }) => {
   const theme = useContext(ThemeContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +46,7 @@ const Login = ({ closeLoginForm }) => {
         Cookies.set("token", res.data.message);
         Cookies.set("isAuthenticated", true);
         closeLoginForm();
-        navigate("/blog");
+        navigate(navigateTo);
       }).catch((err) => {
         console.log(err.response.data.message)
         setErrors({username: "", password: "", form: "error code " + err.status})
@@ -86,7 +86,7 @@ const Login = ({ closeLoginForm }) => {
           className={`relative w-[80%] h-12 border-2 rounded-md text-lg ${
             theme.theme == "dark"
               ? "border-teal-700 bg-teal-500/20 text-white"
-              : "border-indigo-700 bg-indigo-500/20 text-black"
+              : "border-indigo-700 bg-indigo-500/20 text-white"
           }`}
         >
           <input
@@ -94,8 +94,7 @@ const Login = ({ closeLoginForm }) => {
             placeholder="USERNAME"
             id="username"
             name="username"
-            className="absolute top-0 left-0 w-full
-             h-full pl-2 bg-transparent border-none outline-none rounded-md"
+            className="absolute top-0 left-0 w-full h-full pl-2 bg-transparent border-none outline-none rounded-md"
             onChange={() => setUsername(event.target.value)}
           />
 
@@ -106,7 +105,7 @@ const Login = ({ closeLoginForm }) => {
           className={`relative w-[80%] h-12 border-2 rounded-md text-lg ${
             theme.theme == "dark"
               ? "border-teal-700 bg-teal-500/20 text-white"
-              : "border-indigo-700 bg-indigo-500/20 text-black"
+              : "border-indigo-700 bg-indigo-500/20 text-white"
           }`}
         >
           <input

@@ -83,7 +83,7 @@ const Navbar = ({navOpenState, closeNav}) => {
 
             {
                 navOpenState == true ?
-                    <span className="material-symbols-rounded absolute text-white text-3xl top-2 right-2" onClick={() => closeNav()}>close</span>
+                    <span className="material-symbols-rounded absolute text-white text-3xl top-2 right-2 cursor-pointer" onClick={() => closeNav()}>close</span>
                 : null
             }
 

@@ -31,12 +31,36 @@ const ToolsBar = ({editor}) => {
       { task: "center", icon: <BiAlignMiddle className="toolbar-icon" /> },
       { task: "right", icon: <BiAlignRight className="toolbar-icon" /> },
       { task: "justify", icon: <BiAlignJustify className="toolbar-icon" /> },
+      { task: "color", icon: <input type="color" className="h-7 w-10 block bg-transparent cursor-pointer disabled:opacity-50 disabled:pointer-events-none" 
+                                  onChange={(event) => editor.chain().focus().setColor(event.target.value).run()} 
+                                  defaultValue={editor.getAttributes('textStyle').color} />},
+
+      { task: "fontFamily", icon: <select   
+                                          defaultValue={editor.getAttributes('textStyle').fontFamily} 
+                                          className={`${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'} 
+                                          outline-none border-2  w-32 ml-4 bg-transparent rounded-sm`}
+                                          onChange={(event) => editor.chain().focus().setFontFamily(event.target.value).run()}>
+                                    <option>Inter</option>
+                                    <option>cursive</option>
+                                    <option>Comic Sans MS, Comic Sans</option>
+                                    <option>serif</option>
+                                    <option>sans-serif</option>
+                                    <option>monospace</option>
+                                    <option>Exo 2</option>
+                                  </select>},
     ];
+
+    
+
+
+
+
+
 
     const handleOnClick = (task) => {
       switch (task) {
         case "h1":
-          return editor?.chain().focus().toggleHeading({level: 1}).run();
+          return editor.chain().focus().setHeading({ level: 1 }).run();
           case "h2":
           return editor?.chain().focus().toggleHeading({level: 2}).run();
           case "h3":
@@ -68,12 +92,10 @@ const ToolsBar = ({editor}) => {
         case "justify":
           return editor?.chain().focus().setTextAlign('justify').run();
         case "image":
-          setShowImageSelector(true)  
+          return setShowImageSelector(true);
+       
       }
     };
-
-
-    const [imagesStore, setImagesStore] = useState([])
 
     const storeInsertedFile = (source) => {
       editor.commands.setImage({
@@ -91,7 +113,7 @@ const ToolsBar = ({editor}) => {
     return <div className="">
         <ImageSelector visible={showImageSelector} storeInsertedFile={storeInsertedFile} closeImageSelector={closeImageSelector}/>
         
-        <div className={`border-2 rounded-t-md flex py-4 gap-4 px-4 ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`} >
+        <div className={`grid grid-cols-[repeat(auto-fill,_minmax(20px,_1fr))] border-2 rounded-t-md py-4 gap-4 px-4 ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`} >
             {
                 tools.map(({task, icon}) => {
                     return <ToolButton key={task} active={editor?.isActive(task) || editor?.isActive({textAlign: task})} onClick={() => handleOnClick(task)}>{icon}</ToolButton>

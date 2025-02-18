@@ -4,10 +4,12 @@ import { ThemeContext } from "../../../../constants/Constants"
 import { IoCloudUploadOutline } from "react-icons/io5"
 import axios from "axios"
 import Cookies from "js-cookie"
+import Login from "../../../Login/Login"
 
 const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
 
     const [storedImages, setStoredImages] = useState([])
+    const [showLoginForm, setShowLoginForm] = useState(false)
 
     const imageFileChooser = useRef()
 
@@ -29,6 +31,12 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
             setStoredImages(res.data.message)
             console.log(res.data.message)
         })
+        .catch((err) => {
+            if(err.status == 401){
+              setShowLoginForm(true)
+              console.log("not authorized")
+            }
+          })
     }, [])
 
     const handleFileInputChange = () => {
@@ -63,7 +71,9 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
     if(!visible) return
 
 
-    
+    const closeLoginForm = () => {
+        setShowLoginForm(false);
+      };
 
 
 
@@ -79,6 +89,16 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
     }}
     
     >
+
+
+{
+              showLoginForm ?
+              <Login closeLoginForm={closeLoginForm} navigateTp=""/>
+              : null
+            }
+
+
+
 <div className="relative w-[80%] md:w-[760px] overflow-y-auto bg-black rounded-md p-8 gap-3  max-h-[80%] scrollbar-thin" >
 
         <div className="flex items-center justify-center w-full">

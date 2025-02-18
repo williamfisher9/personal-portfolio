@@ -123,7 +123,6 @@ def delete_image_by_id(id):
         return response_message.create_response_message()
 
 @blog_blueprint.route("/posts/<id>", methods=['GET'])
-@jwt_required()
 def get_post_by_id(id):
     post = Blog.query.filter_by(id=id).first()
     if not post:

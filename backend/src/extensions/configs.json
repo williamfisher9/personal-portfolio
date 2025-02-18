@@ -7,5 +7,9 @@
   "LOGS_DIRECTORY": "C://Users//william.fisher//Desktop//app_files",
   "JWT_EXP_MILLISECONDS": 300000,
   "UPLOAD_FOLDER": "C://Users//william.fisher//Desktop//app_files//images",
-  "MAX_CONTENT_LENGTH": 16000000
+  "MAX_CONTENT_LENGTH": 16000000,
+  "MAIL_SERVER": "smtp.gmail.com",
+  "MAIL_PORT": 465,
+  "MAIL_USE_TLS": false,
+  "MAIL_USE_SSL": true
 }

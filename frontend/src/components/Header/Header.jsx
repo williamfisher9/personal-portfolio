@@ -28,7 +28,7 @@ const Header = () => {
 
       {
         showLoginForm ?
-        <Login closeLoginForm={closeLoginForm} />
+        <Login closeLoginForm={closeLoginForm} navigateTp="/blog"/>
         : null
       }
 

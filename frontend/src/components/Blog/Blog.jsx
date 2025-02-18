@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import { ThemeContext } from "../../constants/Constants"
 import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
+import Login from "../Login/Login"
 
 const Blog = () => {
     const theme = useContext(ThemeContext)
@@ -24,6 +25,7 @@ const Blog = () => {
         navigate('/blog/posts/new')
     }
 
+    const [showLoginForm, setShowLoginForm] = useState(false)
     const handleSearchBarChange = () => {
         axios.get(`http://localhost:9999/api/v1/blog/posts/search/${event.target.value == "" ? "-" : event.target.value}`)
         .then((res) => {
@@ -37,6 +39,10 @@ const Blog = () => {
     const readPost = (id) => {
         navigate("/blog/posts/"+id)
     }
+
+    const closeLoginForm = () => {
+        setShowLoginForm(false);
+      };
 
     const deletePostById = (id) => {
         axios.delete("http://localhost:9999/api/v1/blog/posts/" + id, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
@@ -53,13 +59,20 @@ const Blog = () => {
         })
         .catch((err) => {
             console.log(err)
+            setShowLoginForm(true)
         })
     }
 
     return <div className={`blog-container px-4 rounded-md`}>
         <div className="flex gap-4 mb-14 items-center justify-center">
             
-
+{
+    
+                  showLoginForm ?
+                  <Login closeLoginForm={closeLoginForm} navigateTo=""/>
+                  : null
+                
+}
 
         <div
           className={`relative h-12 border-2 rounded-md text-lg  w-[80%] md:w-[700px] ${
@@ -93,22 +106,23 @@ const Blog = () => {
                 }
         </div>
 
-        <div className="posts-container grid gap-10 grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))]">
+        <div className="posts-container grid gap-10 grid-cols-[repeat(auto-fill,_minmax(350px,_1fr))]">
 
             {
                 posts.map(({id, title, description, main_image_source}) => {
                     console.log(main_image_source)
-                    return <div key={id} className={`relative m-4 p-4 border ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'} rounded-md`}>
+                    return <div key={id} className={`relative rounded-md m-4 p-4 border ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}`}>
+                        
                         <div style={{clipPath: "polygon(9% 0, 100% 0%, 91% 100%, 0 100%)"}}
                          className={`absolute top-[-20px] laft-[20px] ${theme.theme == 'dark' ? 'bg-teal-800' : 'bg-indigo-800'} px-10 py-1 border border-teal-500`}>
-                        <h1 className={`text-white`}>{title}</h1>
+                        <p className={`text-white font-semibold`}>{title}</p>
                         </div>
 
                         <div className="flex items-center justify-center py-4">
-                            <img src={main_image_source} className="w-[90%] h-32 object-contain" />
+                            <img src={main_image_source} className="w-[90%] h-40 object-contain" />
                         </div>
 
-                        <div className="">
+                        <div className="line-clamp-3">
                             <p className="mt-2">{description}</p>
                         </div>
                         
