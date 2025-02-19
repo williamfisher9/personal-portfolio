@@ -146,3 +146,52 @@ def delete_post_by_id(id):
 
         response_message = ResponseMessage("deleted successfully", 200)
         return response_message.create_response_message()
+
+
+
+
+
+
+
+
+@blog_blueprint.route("/posts/update/<id>", methods=['PUT'])
+@jwt_required()
+def update_post(id):
+    fetched_blog = Blog.query.filter_by(id=id).first()
+
+    if not fetched_blog:
+        response_message = ResponseMessage("Blog was not found", 404)
+        return response_message.create_response_message()
+
+    if 'file' not in request.files:
+        fetched_blog.title = request.form['title']
+        fetched_blog.description = request.form['description']
+        fetched_blog.post_contents = request.form['post_contents']
+        db.session.add(fetched_blog)
+        db.session.commit()
+
+        response_message = ResponseMessage("post updated successfully", 201)
+        return response_message.create_response_message()
+
+
+    file = request.files['file']
+    # If the user does not select a file, the browser submits an
+    # empty file without a filename.
+    if file.filename == '':
+        response_message = ResponseMessage("Improper file name", 400)
+        return response_message.create_response_message()
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join("C://Users//william.fisher//Desktop//app_files//images", filename))
+
+        fetched_blog.title = request.form['title']
+        fetched_blog.description = request.form['description']
+        fetched_blog.post_contents = request.form['post_contents']
+        fetched_blog.main_image_source = filename
+        
+        db.session.add(fetched_blog)
+        db.session.commit()
+
+        response_message = ResponseMessage("post updated successfully", 201)
+        return response_message.create_response_message()

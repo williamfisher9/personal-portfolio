@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { IoMdClose } from "react-icons/io"
-import { ThemeContext } from "../../../../constants/Constants"
+import { ThemeContext, UserContext } from "../../../../constants/Constants"
 import { IoCloudUploadOutline } from "react-icons/io5"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -9,7 +9,7 @@ import Login from "../../../Login/Login"
 const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
 
     const [storedImages, setStoredImages] = useState([])
-    const [showLoginForm, setShowLoginForm] = useState(false)
+    const userContext = useContext(UserContext)
 
     const imageFileChooser = useRef()
 
@@ -33,7 +33,7 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
         })
         .catch((err) => {
             if(err.status == 401){
-              setShowLoginForm(true)
+              userContext.setShowLoginForm(true)
               console.log("not authorized")
             }
           })
@@ -71,12 +71,6 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
     if(!visible) return
 
 
-    const closeLoginForm = () => {
-        setShowLoginForm(false);
-      };
-
-
-
     return <div className={`${theme.theme == "dark" ? "bg-teal-900" : "bg-indigo-900"} 
     fixed inset-0 backdrop-blur-sm bg-opacity-40 flex items-center justify-center z-50`}
     
@@ -91,11 +85,7 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
     >
 
 
-{
-              showLoginForm ?
-              <Login closeLoginForm={closeLoginForm} navigateTp=""/>
-              : null
-            }
+<Login closeLoginForm={() => userContext.setShowLoginForm(false)} navigateTo="" showLoginForm={userContext.showLoginForm} />
 
 
 

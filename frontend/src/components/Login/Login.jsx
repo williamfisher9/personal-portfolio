@@ -1,16 +1,18 @@
 import { useContext, useState } from "react";
-import { ThemeContext } from "../../constants/Constants";
+import { ThemeContext, UserContext } from "../../constants/Constants";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
 import Cookies from "js-cookie";
 
-const Login = ({ closeLoginForm, navigateTo }) => {
+const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
   const theme = useContext(ThemeContext);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("hamza.hamdan@hotmail.com");
+  const [password, setPassword] = useState("12345678");
   const [errors, setErrors] = useState({})
+
+  const userContext = useContext(UserContext)
 
   const navigate = useNavigate();
 
@@ -44,7 +46,7 @@ const Login = ({ closeLoginForm, navigateTo }) => {
       .then((res) => {
         console.log(res.data.message);
         Cookies.set("token", res.data.message);
-        Cookies.set("isAuthenticated", true);
+        userContext.setAuthenticated(true);
         closeLoginForm();
         navigate(navigateTo);
       }).catch((err) => {
@@ -54,6 +56,9 @@ const Login = ({ closeLoginForm, navigateTo }) => {
     }
     
   };
+
+  if(!showLoginForm)
+    return
 
   return (
     <div
@@ -122,15 +127,15 @@ const Login = ({ closeLoginForm, navigateTo }) => {
         </div>
 
         <button
-          className={`w-20 h-10 px-4 py-2 rounded-md 
+          className={` h-10 px-4 py-2 rounded-md 
             ${
               theme.theme == "dark"
-                ? "text-black bg-teal-700 hover:bg-teal-800"
-                : "text-white bg-indigo-700  hover:bg-indigo-800"
+                ? "text-black bg-teal-500 hover:bg-teal-600"
+                : "text-white bg-indigo-500  hover:bg-indigo-600"
             }`}
           onClick={handleLoginBtnClick}
         >
-          LOGIN
+          SIGN IN
         </button>
 
         <p className="absolute left-[50%] bottom-7 translate-x-[-50%] text-red-500">{errors.form}</p>
@@ -144,4 +149,6 @@ export default Login;
 
 Login.propTypes = {
   closeLoginForm: PropTypes.func.isRequired,
+  navigateTo: PropTypes.string.isRequired,
+  showLoginForm: PropTypes.func.isRequired,
 };

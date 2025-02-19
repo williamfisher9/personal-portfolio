@@ -2,35 +2,29 @@ import { useContext, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import "./Header.css";
 import ThemeToggler from "../ThemeToggler/ThemeToggler";
-import { ThemeContext } from "../../constants/Constants";
+import { ThemeContext, UserContext } from "../../constants/Constants";
 import Login from "../Login/Login";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const [navOpenState, setNavOpenState] = useState(false);
-  const [showLoginForm, setShowLoginForm] = useState(false);
 
   const theme = useContext(ThemeContext)
+  const userContext = useContext(UserContext)
 
   const closeNav = () => {
     setNavOpenState(false);
   };
 
-  const closeLoginForm = () => {
-    setShowLoginForm(false);
-  };
-
-  const handleLogin = () => {
-    setShowLoginForm(true);
+  const handleSignout = () => {
+    userContext.setAuthenticated(false);
+    Cookies.remove("token")
   }
 
   return (
     <div className="w-full h-20 flex items-center justify-between px-10">
 
-      {
-        showLoginForm ?
-        <Login closeLoginForm={closeLoginForm} navigateTp="/blog"/>
-        : null
-      }
+<Login closeLoginForm={() => userContext.setShowLoginForm(false)} navigateTo="/blog" showLoginForm={userContext.showLoginForm} />
 
       <a href="/">
         <img src={theme.theme == 'dark' ? 'bg-teal-logo.png' : 'bg-purple-logo.png'} className="size-16" alt="logo-image" />
@@ -41,7 +35,11 @@ const Header = () => {
       <div className="flex gap-2">
           <ThemeToggler />
 
-          <button className={`header-btn ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`} onClick={handleLogin}>LOGIN</button>
+          {
+            userContext.isAuthenticated ? 
+            <button className={`header-btn ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`} onClick={handleSignout}>SIGN OUT</button>
+            :<button className={`header-btn ${theme.theme == 'dark' ? 'btn-dark-theme' : 'btn-light-theme'}`} onClick={() => userContext.setShowLoginForm(true)}>SIGN IN</button>
+          }
 
           <span className={`menu-icon material-symbols-rounded ${theme.theme == 'dark' ? 'bg-teal-500/100 text-black' : 'bg-indigo-500/100 text-white'}`} onClick={() => setNavOpenState((prev) => !prev)}>
             {!navOpenState ? "menu" : "close"}

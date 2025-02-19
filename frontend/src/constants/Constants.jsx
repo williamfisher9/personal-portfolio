@@ -1,6 +1,7 @@
 import React from "react";
 
 export const ThemeContext = React.createContext('dark');
+export const UserContext = React.createContext(false);
 
 export const SKILLS_ITEMS = [
     {
