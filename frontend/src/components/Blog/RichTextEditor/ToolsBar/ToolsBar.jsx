@@ -9,6 +9,8 @@ import { ThemeContext } from "../../../../constants/Constants"
 import ToolButton from "./ToolButton/ToolButton"
 import { BsTypeH1, BsTypeH2, BsTypeH3 } from "react-icons/bs"
 import ImageSelector from "../ImageSelector/ImageSelector"
+import { GoHorizontalRule } from "react-icons/go"
+import { MdOutlineInsertPageBreak } from "react-icons/md"
 
 const ToolsBar = ({editor}) => {
     const theme = useContext(ThemeContext)
@@ -31,6 +33,10 @@ const ToolsBar = ({editor}) => {
       { task: "center", icon: <BiAlignMiddle className="toolbar-icon" /> },
       { task: "right", icon: <BiAlignRight className="toolbar-icon" /> },
       { task: "justify", icon: <BiAlignJustify className="toolbar-icon" /> },
+      { task: "hrule", icon: <GoHorizontalRule className="toolbar-icon" /> },
+
+      { task: "hardbreak", icon: <MdOutlineInsertPageBreak className="toolbar-icon" /> },
+      
       { task: "color", icon: <input type="color" className="h-7 w-10 block bg-transparent cursor-pointer disabled:opacity-50 disabled:pointer-events-none" 
                                   onChange={(event) => editor.chain().focus().setColor(event.target.value).run()} 
                                   defaultValue={editor.getAttributes('textStyle').color} />},
@@ -93,6 +99,10 @@ const ToolsBar = ({editor}) => {
           return editor?.chain().focus().setTextAlign('justify').run();
         case "image":
           return setShowImageSelector(true);
+        case "hrule":
+          return editor.commands.setHorizontalRule()
+        case "hardbreak":
+          return editor.commands.setHardBreak()
        
       }
     };

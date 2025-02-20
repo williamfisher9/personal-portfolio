@@ -16,12 +16,17 @@ import FontFamily from '@tiptap/extension-font-family';
 
 import StarterKit from '@tiptap/starter-kit';
 import { useEditor } from "@tiptap/react";
+import ImageResize from 'tiptap-extension-resize-image';
+import HorizontalRule from '@tiptap/extension-horizontal-rule'
 
 const RichTextEditor = ({onRichTextEditorChange, post_contents}) => {
   const theme = useContext(ThemeContext)
 
   useEffect(() => {
-    editor.commands.setContent(post_contents);
+    //editor.commands.setContent(post_contents);
+    editor.commands.setContent(post_contents, false, {
+      preserveWhitespace: "full",
+    })
   }, [])
 
   const extensions = [
@@ -29,7 +34,9 @@ const RichTextEditor = ({onRichTextEditorChange, post_contents}) => {
     Underline,
     TextAlign.configure({types: ['heading', 'paragraph'], alignments: ['left', 'right', 'center', 'justify'], defaultAlignment: 'left'}), 
     Placeholder.configure({placeholder: "Write something..."}),
-    Image.configure({}),
+    Image.configure({
+      inline: true,
+    }),
     TextStyle.configure({
       color:"#000000",
       fontFamily: "cursize"
@@ -38,6 +45,8 @@ const RichTextEditor = ({onRichTextEditorChange, post_contents}) => {
     
     FontFamily,
     
+    ImageResize,
+    HorizontalRule
   ]
 
   FontFamily.extend({
@@ -91,6 +100,9 @@ const RichTextEditor = ({onRichTextEditorChange, post_contents}) => {
   })
 
   const editor = useEditor({
+    parseOptions: {
+      preserveWhitespace: 'full',
+    },
     extensions,
     editorProps: {
       attributes: {

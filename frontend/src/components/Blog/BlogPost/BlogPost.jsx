@@ -247,6 +247,8 @@ const BlogPost = ({ mode }) => {
         <label className="text-sm text-red-500">{errors.editorError}</label>
       </div>
 
+      <div className="">
+
       <div className="flex gap-2 justify-center items-center">
         <button
           disabled={isPublishing}
@@ -261,6 +263,18 @@ const BlogPost = ({ mode }) => {
            {isPublishing ? <span className="material-symbols-rounded animate-spin">sync</span> : null}
           
         </button>
+
+{mode == "edit" ? <button 
+className={` w-[150px] h-[40px] btn flex justify-center items-center gap-1 ${theme.theme == "dark" ? "btn-dark-theme" : "btn-light-theme"}`}
+onClick={() => {navigate("/blog")}}>
+            CANCEL <span className="material-symbols-rounded">close</span>
+          </button>
+          : null}
+          
+
+      </div>
+
+
       </div>
     </div>
   );
