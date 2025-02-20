@@ -4,7 +4,6 @@ from src.extensions.app_config import initialize_app
 from src.extensions.extensions import bcrypt, db, jwt, cors, mail
 
 import json
-import sys
 import os
 
 from src.extensions.initialize_database import initialize_database
@@ -13,12 +12,6 @@ from src.routes.blog_routes import blog_blueprint
 from src.routes.mail_routes import mail_blueprint
 
 if __name__ == '__main__':
-
-    if not __package__:
-        # Make CLI runnable from source tree with
-        #    python src/package
-        package_source_path = os.path.dirname(os.path.dirname(__file__))
-        sys.path.insert(0, package_source_path)
 
     initialize_app()
 
