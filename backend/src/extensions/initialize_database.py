@@ -1,5 +1,3 @@
-from sqlalchemy.sql.coercions import RoleImpl
-
 from src.model.role import Role
 from src.model.user import User
 from src.extensions.extensions import bcrypt, db
