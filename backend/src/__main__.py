@@ -12,11 +12,10 @@ from src.routes.blog_routes import blog_blueprint
 from src.routes.mail_routes import mail_blueprint
 
 if __name__ == '__main__':
-
     initialize_app()
 
     app = Flask(__name__)
-    app.config.from_file("extensions\\configs.json", load=json.load)
+    app.config.from_file("extensions//configs.json", load=json.load)
     app.config['MAIL_USERNAME']=os.environ.get('MAIL_USERNAME')
     app.config['MAIL_PASSWORD']=os.environ.get('MAIL_PASSWORD')
 
@@ -33,4 +32,4 @@ if __name__ == '__main__':
     with app.app_context():
         initialize_database()
 
-    app.run(debug=True, port=9999)
+    app.run(debug=False, port=9999, host='0.0.0.0')
