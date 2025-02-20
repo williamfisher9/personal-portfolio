@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ThemeContext, UserContext } from "../../constants/Constants";
+import { BACKEND_URL, ThemeContext, UserContext } from "../../constants/Constants";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
 
     if(!hasErrors){
       axios
-      .post("http://localhost:9999/api/v1/users/login", { username, password })
+      .post(`${BACKEND_URL}/api/v1/users/login`, { username, password })
       .then((res) => {
         console.log(res.data.message);
         Cookies.set("token", res.data.message);
@@ -150,5 +150,5 @@ export default Login;
 Login.propTypes = {
   closeLoginForm: PropTypes.func.isRequired,
   navigateTo: PropTypes.string.isRequired,
-  showLoginForm: PropTypes.func.isRequired,
+  showLoginForm: PropTypes.bool.isRequired
 };

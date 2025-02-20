@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ThemeContext } from "../../constants/Constants";
+import { BACKEND_URL, ThemeContext } from "../../constants/Constants";
 import axios from "axios";
 
 const Contact = () => {
@@ -52,7 +52,7 @@ const Contact = () => {
 
     if(!hasErrors){
       setIsSendingEmail(true)
-      axios.post("http://localhost:9999/api/v1/mail/send", {name, mail, message})
+      axios.post(`${BACKEND_URL}/api/v1/mail/send`, {name, mail, message})
     .then((res) => {
       if(res.status==200){
         console.log("success")

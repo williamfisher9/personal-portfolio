@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom"
 import axios from "axios"
 
 import DOMPurify from 'dompurify';
+import { BACKEND_URL } from "../../../constants/Constants";
 
 const BlogPostDisplay = () => {
     const {id} = useParams()
     const [post, setPost] = useState("")
 
     useEffect(() => {
-        axios.get(`http://localhost:9999/api/v1/blog/posts/${id}`)
+        axios.get(`${BACKEND_URL}/api/v1/blog/posts/${id}`)
         .then((res) => {
             setPost(res.data.message)
         })

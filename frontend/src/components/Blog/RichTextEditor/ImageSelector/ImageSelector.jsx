@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react"
 import { IoMdClose } from "react-icons/io"
-import { ThemeContext, UserContext } from "../../../../constants/Constants"
+import { BACKEND_URL, ThemeContext, UserContext } from "../../../../constants/Constants"
 import { IoCloudUploadOutline } from "react-icons/io5"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -14,10 +14,10 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
     const imageFileChooser = useRef()
 
     const removeImage = (id) => {
-        axios.delete("http://localhost:9999/api/v1/blog/posts/images/"+id, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
+        axios.delete(`${BACKEND_URL}/api/v1/blog/posts/images/${id}`, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
         .then((res) => {
             if(res.status==200){
-                axios.get("http://localhost:9999/api/v1/blog/posts/images", {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
+                axios.get(`${BACKEND_URL}/api/v1/blog/posts/images`, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
                 .then((res) => {
                     setStoredImages(res.data.message)
                 })
@@ -26,7 +26,7 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:9999/api/v1/blog/posts/images", {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
+        axios.get(`${BACKEND_URL}/api/v1/blog/posts/images`, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
         .then((res) => {
             setStoredImages(res.data.message)
             console.log(res.data.message)
@@ -47,10 +47,10 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
         let formData = new FormData()
         formData.append("file", event.target.files[0])
 
-        axios.post("http://localhost:9999/api/v1/blog/posts/upload", formData, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
+        axios.post(`${BACKEND_URL}/api/v1/blog/posts/upload`, formData, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
         .then((res) => {
             if(res.status==200){
-                axios.get("http://localhost:9999/api/v1/blog/posts/images", {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
+                axios.get(`${BACKEND_URL}/api/v1/blog/posts/images`, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
                 .then((res) => {
                     setStoredImages(res.data.message)
                 })

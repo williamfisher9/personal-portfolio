@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { ThemeContext, UserContext } from "../../../constants/Constants";
+import { BACKEND_URL, ThemeContext, UserContext } from "../../../constants/Constants";
 import RichTextEditor from "../RichTextEditor/RichTextEditor";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -32,7 +32,7 @@ const BlogPost = ({ mode }) => {
   useEffect(() => {
     if (mode == "edit") {
       axios
-        .get(`http://localhost:9999/api/v1/blog/posts/${params.id}`)
+        .get(`${BACKEND_URL}/api/v1/blog/posts/${params.id}`)
         .then((res) => {
           if (res.status == 200) {
             console.log("done");
@@ -89,7 +89,7 @@ const BlogPost = ({ mode }) => {
 
       if (mode == "new") {
         axios
-          .post("http://localhost:9999/api/v1/blog/posts/new", formData, {
+          .post(`${BACKEND_URL}/api/v1/blog/posts/new`, formData, {
             headers: { Authorization: `Bearer ${Cookies.get("token")}` },
           })
           .then((res) => {
@@ -108,7 +108,7 @@ const BlogPost = ({ mode }) => {
       } else {
         axios
           .put(
-            `http://localhost:9999/api/v1/blog/posts/update/${params.id}`,
+            `${BACKEND_URL}/api/v1/blog/posts/update/${params.id}`,
             formData,
             { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
           )

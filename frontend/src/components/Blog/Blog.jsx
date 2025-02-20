@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
-import { ThemeContext, UserContext } from "../../constants/Constants"
+import { BACKEND_URL, ThemeContext, UserContext } from "../../constants/Constants"
 import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
 import Login from "../Login/Login"
@@ -14,7 +14,7 @@ const Blog = () => {
     const userContext = useContext(UserContext)
 
     useEffect(() => {
-        axios.get("http://localhost:9999/api/v1/blog/posts")
+        axios.get(`${BACKEND_URL}/api/v1/blog/posts`)
         .then((res) => {
             setPosts(res.data.message)
         })
@@ -28,7 +28,7 @@ const Blog = () => {
     }
 
     const handleSearchBarChange = () => {
-        axios.get(`http://localhost:9999/api/v1/blog/posts/search/${event.target.value == "" ? "-" : event.target.value}`)
+        axios.get(`${BACKEND_URL}/api/v1/blog/posts/search/${event.target.value == "" ? "-" : event.target.value}`)
         .then((res) => {
             setPosts(res.data.message)
         })
@@ -38,18 +38,18 @@ const Blog = () => {
     }
 
     const readPost = (id) => {
-        navigate(`/blog/posts/${id}`)
+        navigate(`${BACKEND_URL}/blog/posts/${id}`)
     }
 
     const editPost = (id) => {
-        navigate(`/blog/posts/edit/${id}`)
+        navigate(`${BACKEND_URL}/blog/posts/edit/${id}`)
     }
 
     const deletePostById = (id) => {
-        axios.delete("http://localhost:9999/api/v1/blog/posts/" + id, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
+        axios.delete("${BACKEND_URL}/api/v1/blog/posts/" + id, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
             if(res.status == 200){
-                axios.get("http://localhost:9999/api/v1/blog/posts")
+                axios.get("${BACKEND_URL}/api/v1/blog/posts")
         .then((res) => {
             setPosts(res.data.message)
         })
