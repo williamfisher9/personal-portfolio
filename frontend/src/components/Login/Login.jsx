@@ -44,13 +44,11 @@ const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
       axios
       .post(`${BACKEND_URL}/api/v1/users/login`, { username, password })
       .then((res) => {
-        console.log(res.data.message);
         Cookies.set("token", res.data.message);
         userContext.setAuthenticated(true);
         closeLoginForm();
         navigate(navigateTo);
       }).catch((err) => {
-        console.log(err.response.data.message)
         setErrors({username: "", password: "", form: "error code " + err.status})
       });
     }

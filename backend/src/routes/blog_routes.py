@@ -6,12 +6,17 @@ from src.messages.response_message import ResponseMessage
 from src.model.blog import Blog
 from src.extensions.extensions import db
 import os
+import json
 
 from src.model.stored_images import StoredImages
 
 blog_blueprint = Blueprint("blog_blueprint", __name__, url_prefix="/api/v1/blog")
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def get_param_value_by_name(val):
+    with open('src//extensions//configs.json', 'r') as props_file:
+        return json.load(props_file)[val]
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -22,12 +27,15 @@ def get_profile_img_link(filename):
 
 @blog_blueprint.route('/api/v1/blog/posts/images/<filename>')
 def get_img_url(filename):
-   return send_from_directory("C://Users//william.fisher//Desktop//app_files//images", filename, as_attachment=False)
+   return send_from_directory(get_param_value_by_name("UPLOAD_FOLDER"), filename, as_attachment=False)
 
 
 @blog_blueprint.route("/posts", methods=['GET'])
 def get_all_posts():
     blogs = Blog.query.all()
+
+    for blog in blogs:
+        blog.main_image_source = get_profile_img_link(blog.main_image_source)
 
     response_message = ResponseMessage([blog.to_dict() for blog in blogs], 200)
     return response_message.create_response_message()
@@ -58,7 +66,7 @@ def create_post():
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join("C://Users//william.fisher//Desktop//app_files//images", filename))
+        file.save(os.path.join(get_param_value_by_name("UPLOAD_FOLDER"), filename))
 
         blog = Blog(request.form['title'],
                     request.form['description'],
@@ -88,9 +96,9 @@ def upload_image():
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join("C://Users//william.fisher//Desktop//app_files//images", filename))
+            file.save(os.path.join(get_param_value_by_name("UPLOAD_FOLDER"), filename))
 
-            image = StoredImages(filename, "C://Users//william.fisher//Desktop//app_files//images//" + filename)
+            image = StoredImages(filename, get_param_value_by_name("UPLOAD_FOLDER") + "//" + filename)
             db.session.add(image)
             db.session.commit()
 
@@ -183,7 +191,7 @@ def update_post(id):
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
-        file.save(os.path.join("C://Users//william.fisher//Desktop//app_files//images", filename))
+        file.save(os.path.join(get_param_value_by_name("UPLOAD_FOLDER"), filename))
 
         fetched_blog.title = request.form['title']
         fetched_blog.description = request.form['description']

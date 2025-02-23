@@ -35,7 +35,6 @@ const BlogPost = ({ mode }) => {
         .get(`${BACKEND_URL}/api/v1/blog/posts/${params.id}`)
         .then((res) => {
           if (res.status == 200) {
-            console.log("done");
             setTitle(res.data.message.title);
             setDescription(res.data.message.description);
             setEditorText(res.data.message.post_contents);
@@ -102,7 +101,6 @@ const BlogPost = ({ mode }) => {
             if (err.status == 401) {
               setIsPublishing(false);
               userContext.setShowLoginForm(true);
-              console.log("not authorized");
             }
           });
       } else {
@@ -113,7 +111,6 @@ const BlogPost = ({ mode }) => {
             { headers: { Authorization: `Bearer ${Cookies.get("token")}` } }
           )
           .then((res) => {
-            console.log(res);
             if (res.status == 201) {
               setIsPublishing(false);
               navigate("/blog");
@@ -123,7 +120,6 @@ const BlogPost = ({ mode }) => {
             if (err.status == 401) {
               setIsPublishing(false);
               userContext.setShowLoginForm(true);
-              console.log("not authorized");
             }
           });
       }

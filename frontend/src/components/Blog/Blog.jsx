@@ -38,18 +38,18 @@ const Blog = () => {
     }
 
     const readPost = (id) => {
-        navigate(`${BACKEND_URL}/blog/posts/${id}`)
+        navigate(`/blog/posts/${id}`)
     }
 
     const editPost = (id) => {
-        navigate(`${BACKEND_URL}/blog/posts/edit/${id}`)
+        navigate(`/blog/posts/edit/${id}`)
     }
 
     const deletePostById = (id) => {
-        axios.delete("${BACKEND_URL}/api/v1/blog/posts/" + id, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
+        axios.delete(`${BACKEND_URL}/api/v1/blog/posts/${id}`, {headers: {"Authorization": `Bearer ${Cookies.get("token")}`}})
         .then((res) => {
             if(res.status == 200){
-                axios.get("${BACKEND_URL}/api/v1/blog/posts")
+                axios.get(`${BACKEND_URL}/api/v1/blog/posts`)
         .then((res) => {
             setPosts(res.data.message)
         })
@@ -104,7 +104,7 @@ const Blog = () => {
 
             {
                 posts.map(({id, title, description, main_image_source}) => {
-                    console.log(main_image_source)
+                    
                     return <div key={id} className={`relative h-80 w-96 rounded-md p-4 border ${theme.theme == 'dark' ? 'border-teal-500' : 'border-indigo-500'}
                      max-[1500px]:scale-[0.9] max-[1350px]:scale-[0.8] max-[1220px]:scale-[0.7] max-[1100px]:scale-[0.9] max-[770px]:scale-[1] max-[500px]:scale-[0.9]`}>
                         

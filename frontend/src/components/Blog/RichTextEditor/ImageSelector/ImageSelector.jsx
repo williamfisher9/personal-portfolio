@@ -29,21 +29,15 @@ const ImageSelector = ({visible, closeImageSelector, storeInsertedFile}) => {
         axios.get(`${BACKEND_URL}/api/v1/blog/posts/images`, {headers: {"Authorization": `Bearer ${Cookies.get('token')}`}})
         .then((res) => {
             setStoredImages(res.data.message)
-            console.log(res.data.message)
         })
         .catch((err) => {
             if(err.status == 401){
               userContext.setShowLoginForm(true)
-              console.log("not authorized")
             }
           })
     }, [])
 
     const handleFileInputChange = () => {
-
-        console.log(event.target)
-
-
         let formData = new FormData()
         formData.append("file", event.target.files[0])
 

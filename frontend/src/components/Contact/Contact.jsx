@@ -55,7 +55,6 @@ const Contact = () => {
       axios.post(`${BACKEND_URL}/api/v1/mail/send`, {name, mail, message})
     .then((res) => {
       if(res.status==200){
-        console.log("success")
         setName("")
         setMessage("")
         setMail("")
