@@ -180,4 +180,10 @@ export const SKILLS_ITEMS = [
       skill_type: "BACKEND",
       strength: "90%",
     },
+    {
+      icon_name: "nginx.png",
+      skill_name: "NGINX",
+      skill_type: "BACKEND",
+      strength: "80%",
+    },
   ];
