@@ -75,7 +75,7 @@ const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
         <div>
           <button
             className="absolute right-4 top-4 p-2 z-50 bg-transparent"
-            onClick={() => closeLoginForm()}
+            onClick={() => {closeLoginForm(); setErrors({username: "", password: "", form: ""});}}
           >
             <IoMdClose
               className={`${

@@ -58,7 +58,6 @@ export const SKILLS_ITEMS = [
       skill_name: "Tailwind",
       skill_type: "FRONTEND",
       strength: "80%",
-      tooltip: "Tailwind "
     },
     {
       icon_name: "html.png",
@@ -99,13 +98,13 @@ export const SKILLS_ITEMS = [
     {
       icon_name: "docker.png",
       skill_name: "Docker",
-      skill_type: "CONTAINERIZATION",
+      skill_type: "INFRASTRUCTURE",
       strength: "50%",
     },
     {
       icon_name: "kubernetes.png",
       skill_name: "Kubernetes",
-      skill_type: "ORCHESTRATION",
+      skill_type: "INFRASTRUCTURE",
       strength: "50%",
     },
     {
@@ -171,7 +170,7 @@ export const SKILLS_ITEMS = [
     {
       icon_name: "linux.png",
       skill_name: "Linux",
-      skill_type: "BACKEND",
+      skill_type: "INFRASTRUCTURE",
       strength: "60%",
     },
     {

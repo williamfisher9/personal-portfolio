@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import './Navbar.css'
 import { useContext, useEffect, useRef, useState } from 'react';
-import { ThemeContext } from '../../constants/Constants';
+import { ThemeContext, UserContext } from '../../constants/Constants';
 import { HashLink } from 'react-router-hash-link';
 
 const Navbar = ({navOpenState, closeNav}) => {
@@ -9,13 +9,13 @@ const Navbar = ({navOpenState, closeNav}) => {
 
     const activeNavbarItemBox = useRef(null)
     const activeNavbarItem = useRef(null)
+    const userContext = useContext(UserContext);
 
     const navbarItems = [
         {href: "/home", label: "home", menuSize: "all", ref: activeNavbarItem},
         {href: "/home#portfolio", label: "portfolio", menuSize: "all"},
         {href: "/blog", label: "blog", menuSize: "all"},
-        {href: "/home#contact", label: "contact", menuSize: "all"},
-        {href: "#login", label: "login", menuSize: "small"}
+        {href: "/home#contact", label: "contact", menuSize: "all"}
     ]
     
     /*const handleNavbarItemClick = () => {
@@ -94,12 +94,20 @@ const Navbar = ({navOpenState, closeNav}) => {
                 navbarItems
                 .filter((item) => (screenWidth < 768 && item.menuSize == "all") || (screenWidth < 768 && item.menuSize == "small") || (screenWidth >= 768 && item.menuSize == "all"))
                 .map(({href, label, ref}) => {
-                    return <HashLink key={label} to={href} ref={ref} 
+                    return <HashLink key={label} to={href} ref={ref} onClick={() => closeNav()}
                     className={`navbar-item ${theme.theme == 'dark' ? (navOpenState ? 'text-white' : 'text-black') : 'text-white'}`} 
-                    /*onClick={() => handleNavbarItemClick(label)}*/>
+                    >
                         {label}
                     </HashLink>
                 })
+
+                
+            }
+
+            {
+navOpenState == true && screenWidth < 768 ?
+<button onClick={() => {userContext.setShowLoginForm(true); closeNav();}}>SIGN IN</button>
+:null
             }
 
         </div>
