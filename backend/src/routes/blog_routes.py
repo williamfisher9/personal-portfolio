@@ -1,6 +1,6 @@
 from flask import Blueprint, request, url_for, send_from_directory
 from flask_jwt_extended import jwt_required
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, send_file
 
 from src.messages.response_message import ResponseMessage
 from src.model.blog import Blog
@@ -23,9 +23,10 @@ def allowed_file(filename):
 
 def get_profile_img_link(filename):
     if filename:
-        return url_for("blog_blueprint.get_img_url", _external=True, filename=filename)
+        return get_param_value_by_name("WEB_SERVER_NAME") + "/api/v1/blog/posts/images/" + filename
+        #return url_for("blog_blueprint.get_img_url", _external=True, filename=filename)
 
-@blog_blueprint.route('/api/v1/blog/posts/images/<filename>')
+@blog_blueprint.route('/posts/images/<filename>', methods=['GET'])
 def get_img_url(filename):
    return send_from_directory(get_param_value_by_name("UPLOAD_FOLDER"), filename, as_attachment=False)
 
