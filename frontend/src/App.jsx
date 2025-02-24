@@ -11,6 +11,7 @@ import Layout from "./components/Layout/Layout";
 import Blog from "./components/Blog/Blog";
 import BlogPostDisplay from "./components/Blog/BlogPost/BlogPostDisplay";
 import BlogPost from "./components/Blog/BlogPost/BlogPost";
+import NoMatch from "./components/NoMatch/NoMatch";
 
 const App = () => {
   const [theme, setTheme] = useState(window.localStorage.getItem('theme') || "dark");
@@ -30,6 +31,7 @@ const App = () => {
                 <Route path="/blog/posts/new" element={<BlogPost mode="new" />}></Route>
                 <Route path="/blog/posts/edit/:id" element={<BlogPost mode="edit" />}></Route>
                 <Route path="/blog/posts/:id" element={<BlogPostDisplay />}></Route>
+                <Route path="*" element={<NoMatch />}></Route>
               </Route>
             </Routes>
           </BrowserRouter>
