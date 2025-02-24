@@ -16,6 +16,11 @@ const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
 
   const navigate = useNavigate();
 
+  const handleEnterButton = (event) => {
+    if(event.key == "Enter")
+      handleLoginBtnClick()
+  }
+
   const handleLoginBtnClick = () => {
     let hasErrors = false;
     let newErrors = {username: "", password: "", form: ""}
@@ -99,6 +104,7 @@ const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
             name="username"
             className="absolute top-0 left-0 w-full h-full pl-2 bg-transparent border-none outline-none rounded-md"
             onChange={() => setUsername(event.target.value)}
+            onKeyDown={handleEnterButton}
           />
 
           <label htmlFor="username" className="absolute left-0 bottom-[-30px] text-red-500">{errors.username}</label>
@@ -119,6 +125,7 @@ const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
             className="absolute top-0 left-0 w-full
              h-full pl-2 bg-transparent border-none outline-none rounded-md"
             onChange={() => setPassword(event.target.value)}
+            onKeyDown={handleEnterButton}
           />
 
           <label htmlFor="password" className="absolute left-0 bottom-[-30px] text-red-500">{errors.password}</label>

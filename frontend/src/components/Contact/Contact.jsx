@@ -8,7 +8,7 @@ const Contact = () => {
   const [mail, setMail] = useState("")
   const [name, setName] = useState("")
   const [message, setMessage] = useState("")
-  const [errors, setErrors] = useState({nameError: "", mailError: "", messageError: ""})
+  const [errors, setErrors] = useState({nameError: "", mailError: "", messageError: "", responseError: ""})
 
   const [isSendingEmail, setIsSendingEmail] = useState(false)
 
@@ -22,6 +22,12 @@ const Contact = () => {
 
   const handleMessageChange = () => {
     setMessage(event.target.value)
+  }
+
+
+  const handleEnterButton = (event) => {
+    if(event.key == "Enter")
+      submitEmail()
   }
 
   const submitEmail = () => {
@@ -58,12 +64,14 @@ const Contact = () => {
         setName("")
         setMessage("")
         setMail("")
-        setErrors({nameError: "", mailError: "", messageError: ""})
+        setErrors({nameError: "", mailError: "", messageError: "", responseError: ""})
         setIsSendingEmail(false)
       }
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err.message)
+      setErrors({nameError: "", mailError: "", messageError: "", responseError: err.message})
+      setIsSendingEmail(false)
     })
     } else {
       setErrors(newErrors)
@@ -98,6 +106,7 @@ const Contact = () => {
                     }`}
                     onChange={handleNameChange}
                     value={name}
+                    onKeyDown={handleEnterButton}
           />
           <label className="text-red-500">{errors.nameError}</label>
           </div>
@@ -111,6 +120,7 @@ const Contact = () => {
             }`}
             onChange={handleMailChange}
             value={mail}
+            onKeyDown={handleEnterButton}
           />
           <label className="text-red-500">{errors.mailError}</label>
           </div>
@@ -125,6 +135,7 @@ const Contact = () => {
             }`}
             onChange={handleMessageChange}
             value={message}
+            onKeyDown={handleEnterButton}
           />
           <label className="text-red-500">{errors.messageError}</label>
           </div>
@@ -133,6 +144,8 @@ const Contact = () => {
             <button disabled={isSendingEmail} className={`disabled:bg-gray-400 disabled:cursor-default flex items-center justify-center gap-2 px-4 py-2 uppercase ${theme.theme == "dark" ? "btn-dark-theme" : "btn-light-theme"}`} onClick={submitEmail}>
                {isSendingEmail ? <><span>SUBMIT</span><span className="material-symbols-rounded animate-spin">sync</span></> : <span>SUBMIT</span>}
             </button>
+
+            <label className="text-red-500 text-center text-lg">{errors.responseError}</label>
 
         </div>
       </div>
