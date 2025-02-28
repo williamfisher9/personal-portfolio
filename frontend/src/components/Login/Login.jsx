@@ -8,8 +8,8 @@ import Cookies from "js-cookie";
 
 const Login = ({ closeLoginForm, navigateTo, showLoginForm }) => {
   const theme = useContext(ThemeContext);
-  const [username, setUsername] = useState("hamza.hamdan@hotmail.com");
-  const [password, setPassword] = useState("12345678");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({})
 
   const userContext = useContext(UserContext)
